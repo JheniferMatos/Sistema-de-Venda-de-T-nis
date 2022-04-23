@@ -9,14 +9,14 @@ package view;
  * @author lohan
  */
 public class NewJFrame extends javax.swing.JFrame {
-
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
-        nome.enable(false);
         initComponents();
+        desabilitaBtns();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,7 +30,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -70,9 +70,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(248, 248, 248));
         jPanel2.setName("pListaClientes"); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(13, 51, 101));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tabela.setForeground(new java.awt.Color(13, 51, 101));
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -83,12 +83,12 @@ public class NewJFrame extends javax.swing.JFrame {
                 "Nome"
             }
         ));
-        jTable1.setRowHeight(30);
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable1.setShowGrid(false);
-        jTable1.setShowHorizontalLines(true);
-        jScrollPane1.setViewportView(jTable1);
+        tabela.setRowHeight(30);
+        tabela.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabela.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabela.setShowGrid(false);
+        tabela.setShowHorizontalLines(true);
+        jScrollPane1.setViewportView(tabela);
 
         jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(174, 174, 174));
@@ -134,7 +134,6 @@ public class NewJFrame extends javax.swing.JFrame {
 
         nome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         nome.setForeground(new java.awt.Color(174, 174, 174));
-        nome.setBorder(null);
         nome.setName("tfPesquisa"); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -460,7 +459,17 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
         
-        
+    }
+    public void desabilitaBtns(){
+        nome.setEnabled(false);
+        cpf.setEnabled(false);
+        cidade.setEnabled(false);
+        estado.setEnabled(false);
+        lagradouro.setEnabled(false);
+        numero.setEnabled(false);
+        cep.setEnabled(false);
+        telefone.setEnabled(false);
+        email.setEnabled(false);   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -490,11 +499,11 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField lagradouro;
     private javax.swing.JTextField nome;
     private javax.swing.JTextField numero;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField telefone;
     // End of variables declaration//GEN-END:variables
 }
