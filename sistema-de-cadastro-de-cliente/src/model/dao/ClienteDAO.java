@@ -18,11 +18,16 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO cliente (nome, cpf, telefone, email) VALUES (?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO cliente (nome, cpf, cidade, estado, logradoro, numero, cep, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getCpf());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setString(4, cliente.getEmail());
+            stmt.setString(3, cliente.getCidade());
+            stmt.setString(4, cliente.getEstado());
+            stmt.setString(5, cliente.getLogradouro());
+            stmt.setString(6, cliente.getNumero());
+            stmt.setString(7, cliente.getCep());
+            stmt.setString(8, cliente.getTelefone());
+            stmt.setString(9, cliente.getEmail());
             
             stmt.executeUpdate();
 
@@ -34,7 +39,7 @@ public class ClienteDAO {
         }
     }
     
-    public List<Cliente> buscarCliente(String cpf){
+    public List<Cliente> buscarCliente(String nome){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -42,7 +47,8 @@ public class ClienteDAO {
         List<Cliente> clientes = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente WHERE cpf='"+cpf+"'");
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE nome=?");
+            stmt.setString(1, nome);
             rs = stmt.executeQuery();
             
             while(rs.next()){
@@ -65,12 +71,13 @@ public class ClienteDAO {
         return clientes;
     }
     
-    public void exluirCliente(String cpf){
+    public void exluirCliente(Cliente cliente){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("DELETE FROM cliente WHERE cpf='"+cpf+"'");
+            stmt = con.prepareStatement("DELETE FROM cliente WHERE idcliente = ?");
+            stmt.setString(1, cliente.getId());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
@@ -86,11 +93,17 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPTADE cliente SET ");
+            stmt = con.prepareStatement("UPTADE cliente SET nome = ?, cpf = ?, cidade = ?, estado = ?, logradouro = ?, numero = ?, cep = ?, telefone = ?, email = ? WHERE idcliente = ?;");
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getCpf());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setString(4, cliente.getEmail());
+            stmt.setString(3, cliente.getCidade());
+            stmt.setString(4, cliente.getEstado());
+            stmt.setString(5, cliente.getLogradouro());
+            stmt.setString(6, cliente.getNumero());
+            stmt.setString(7, cliente.getCep());
+            stmt.setString(8, cliente.getTelefone());
+            stmt.setString(9, cliente.getEmail());
+            stmt.setString(10, cliente.getId());
             
             stmt.executeUpdate();
 
