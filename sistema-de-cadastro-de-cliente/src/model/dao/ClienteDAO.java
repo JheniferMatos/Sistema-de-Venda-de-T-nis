@@ -80,4 +80,25 @@ public class ClienteDAO {
             ConnectionDataBase.closeConnection(con, stmt);
         }
     }
+    
+    public void alterarCliente(Cliente cliente){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPTADE cliente SET ");
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getCpf());
+            stmt.setString(3, cliente.getTelefone());
+            stmt.setString(4, cliente.getEmail());
+            
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(null, "Erro na alteracao", ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
+    }
 }

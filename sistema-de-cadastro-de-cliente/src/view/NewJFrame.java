@@ -14,6 +14,7 @@ public class NewJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public NewJFrame() {
+        nome.enable(false);
         initComponents();
     }
 
@@ -33,29 +34,29 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        nome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        cpf = new javax.swing.JTextField();
+        cidade = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        lagradouro = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        numero = new javax.swing.JTextField();
+        cep = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        email = new javax.swing.JTextField();
+        telefone = new javax.swing.JTextField();
+        estado = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnIncluir = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -131,10 +132,10 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(248, 248, 248));
         jPanel3.setName(""); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField2.setBorder(null);
-        jTextField2.setName("tfPesquisa"); // NOI18N
+        nome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        nome.setForeground(new java.awt.Color(174, 174, 174));
+        nome.setBorder(null);
+        nome.setName("tfPesquisa"); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(76, 76, 76));
@@ -144,15 +145,15 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(76, 76, 76));
         jLabel8.setText("CPF");
 
-        jTextField8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField8.setBorder(null);
-        jTextField8.setName("tfPesquisa"); // NOI18N
+        cpf.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cpf.setForeground(new java.awt.Color(174, 174, 174));
+        cpf.setBorder(null);
+        cpf.setName("tfPesquisa"); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField3.setBorder(null);
-        jTextField3.setName("tfPesquisa"); // NOI18N
+        cidade.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cidade.setForeground(new java.awt.Color(174, 174, 174));
+        cidade.setBorder(null);
+        cidade.setName("tfPesquisa"); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(76, 76, 76));
@@ -166,24 +167,24 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(76, 76, 76));
         jLabel10.setText("Número");
 
-        jTextField4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField4.setBorder(null);
-        jTextField4.setName("tfPesquisa"); // NOI18N
+        lagradouro.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lagradouro.setForeground(new java.awt.Color(174, 174, 174));
+        lagradouro.setBorder(null);
+        lagradouro.setName("tfPesquisa"); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(76, 76, 76));
         jLabel4.setText("Logradouro");
 
-        jTextField10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField10.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField10.setBorder(null);
-        jTextField10.setName("tfPesquisa"); // NOI18N
+        numero.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        numero.setForeground(new java.awt.Color(174, 174, 174));
+        numero.setBorder(null);
+        numero.setName("tfPesquisa"); // NOI18N
 
-        jTextField5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField5.setBorder(null);
-        jTextField5.setName("tfPesquisa"); // NOI18N
+        cep.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cep.setForeground(new java.awt.Color(174, 174, 174));
+        cep.setBorder(null);
+        cep.setName("tfPesquisa"); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(76, 76, 76));
@@ -197,20 +198,26 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(76, 76, 76));
         jLabel6.setText("Telefone");
 
-        jTextField12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField12.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField12.setBorder(null);
-        jTextField12.setName("tfPesquisa"); // NOI18N
+        email.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        email.setForeground(new java.awt.Color(174, 174, 174));
+        email.setBorder(null);
+        email.setName("tfPesquisa"); // NOI18N
 
-        jTextField6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField6.setBorder(null);
-        jTextField6.setName("tfPesquisa"); // NOI18N
+        telefone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        telefone.setForeground(new java.awt.Color(174, 174, 174));
+        telefone.setBorder(null);
+        telefone.setName("tfPesquisa"); // NOI18N
 
-        jComboBox1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(76, 76, 76));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(null);
+        estado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        estado.setForeground(new java.awt.Color(76, 76, 76));
+        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MS", "SP", "RJ", "SC" }));
+        estado.setSelectedIndex(-1);
+        estado.setBorder(null);
+        estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadoActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(185, 75, 74));
         jButton2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -228,26 +235,31 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton3.setEnabled(false);
         jButton3.setName("btnPesquisar"); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(185, 75, 74));
-        jButton4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Excluir");
-        jButton4.setBorder(null);
-        jButton4.setName("btnPesquisar"); // NOI18N
+        btnExcluir.setBackground(new java.awt.Color(185, 75, 74));
+        btnExcluir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        btnExcluir.setText("Excluir");
+        btnExcluir.setBorder(null);
+        btnExcluir.setName("btnPesquisar"); // NOI18N
 
-        jButton5.setBackground(new java.awt.Color(42, 177, 187));
-        jButton5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Criar novo");
-        jButton5.setBorder(null);
-        jButton5.setName("btnPesquisar"); // NOI18N
+        btnIncluir.setBackground(new java.awt.Color(42, 177, 187));
+        btnIncluir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnIncluir.setForeground(new java.awt.Color(255, 255, 255));
+        btnIncluir.setText("Criar novo");
+        btnIncluir.setBorder(null);
+        btnIncluir.setName("btnPesquisar"); // NOI18N
 
-        jButton6.setBackground(new java.awt.Color(42, 177, 187));
-        jButton6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Alterar");
-        jButton6.setBorder(null);
-        jButton6.setName("btnPesquisar"); // NOI18N
+        btnAlterar.setBackground(new java.awt.Color(42, 177, 187));
+        btnAlterar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlterar.setText("Alterar");
+        btnAlterar.setBorder(null);
+        btnAlterar.setName("btnPesquisar"); // NOI18N
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -257,38 +269,37 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lagradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cep, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel9)
                         .addComponent(jLabel10)
                         .addComponent(jLabel12)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(numero)
+                        .addComponent(estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGap(102, 102, 102)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jTextField8)))
+                        .addComponent(cpf)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -296,45 +307,45 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(jComboBox1))
+                    .addComponent(cidade, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(estado))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lagradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cep, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,21 +412,29 @@ public class NewJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_estadoActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
+        
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -440,16 +459,22 @@ public class NewJFrame extends javax.swing.JFrame {
                 new NewJFrame().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnIncluir;
+    private javax.swing.JTextField cep;
+    private javax.swing.JTextField cidade;
+    private javax.swing.JTextField cpf;
+    private javax.swing.JTextField email;
+    private javax.swing.JComboBox<String> estado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -467,13 +492,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField lagradouro;
+    private javax.swing.JTextField nome;
+    private javax.swing.JTextField numero;
+    private javax.swing.JTextField telefone;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,7 @@ public class ConnectionDataBase {
             
             return DriverManager.getConnection(URL, USER, PASS);
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new RuntimeException("Erro de conexão", ex);
+            throw new RuntimeException("Erro de conexao", ex);
         }
     }
     
@@ -42,7 +42,7 @@ public class ConnectionDataBase {
         try {
             if (stmt != null) {
                 stmt.close();
-                System.out.println("Conexão fechada");
+                System.out.println("Conexao fechada");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDataBase.class.getName()).log(Level.SEVERE, null, ex);

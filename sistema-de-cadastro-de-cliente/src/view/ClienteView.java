@@ -40,11 +40,6 @@ public class ClienteView extends javax.swing.JFrame {
         Cadastrar = new javax.swing.JButton();
         telefone = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        op1 = new javax.swing.JMenu();
-        op2 = new javax.swing.JMenu();
-        op3 = new javax.swing.JMenu();
-        op4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,20 +72,6 @@ public class ClienteView extends javax.swing.JFrame {
                 CadastrarActionPerformed(evt);
             }
         });
-
-        op1.setText("Cadastrar");
-        jMenuBar1.add(op1);
-
-        op2.setText("Buscar");
-        jMenuBar1.add(op2);
-
-        op3.setText("Editar cliente");
-        jMenuBar1.add(op3);
-
-        op4.setText("Excluir");
-        jMenuBar1.add(op4);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,7 +130,7 @@ public class ClienteView extends javax.swing.JFrame {
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(Cadastrar)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,12 +206,7 @@ public class ClienteView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JTextField nome;
-    private javax.swing.JMenu op1;
-    private javax.swing.JMenu op2;
-    private javax.swing.JMenu op3;
-    private javax.swing.JMenu op4;
     private javax.swing.JTextField telefone;
     // End of variables declaration//GEN-END:variables
 }
