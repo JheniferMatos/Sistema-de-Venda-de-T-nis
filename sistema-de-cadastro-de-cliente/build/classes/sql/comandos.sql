@@ -4,7 +4,7 @@ CREATE TABLE `loja`.`cliente` (
   `cpf` VARCHAR(45) NOT NULL,
   `cidade` VARCHAR(45) NOT NULL,
   `estado` VARCHAR(45) NOT NULL,
-  `lagradouro` VARCHAR(45) NULL,
+  `logradouro` VARCHAR(45) NULL,
   `numero` VARCHAR(45) NULL,
   `cep` VARCHAR(45) NULL,
   `telefone` VARCHAR(45) NULL,

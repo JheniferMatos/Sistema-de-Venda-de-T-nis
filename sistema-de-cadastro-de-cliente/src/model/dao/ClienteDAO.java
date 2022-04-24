@@ -18,7 +18,7 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO cliente (nome, cpf, cidade, estado, logradoro, numero, cep, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO cliente (nome, cpf, cidade, estado, logradouro, numero, cep, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getCpf());
             stmt.setString(3, cliente.getCidade());
@@ -39,7 +39,44 @@ public class ClienteDAO {
         }
     }
     
-    public List<Cliente> buscarCliente(String nome){
+    //Busca cliente recebe um cpf por parâmetro e executa a query
+    public Cliente buscaClienteCpf(String cpf){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Cliente c = new Cliente();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM cliente WHERE cpf = ?");
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            
+            
+            while(rs.next()){
+                
+                //Objeto cliente sendo preenchido pelo resultSet obtido
+                c.setId(rs.getInt("idcliente"));
+                c.setNome(rs.getString("nome"));
+                c.setCpf(rs.getString("cpf"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEstado(rs.getString("estado"));
+                c.setLogradouro(rs.getString("logradouro"));
+                c.setNumero(rs.getString("numero"));
+                c.setCep(rs.getString("cep"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setEmail(rs.getString("email"));
+            }               
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt, rs);
+        }
+        
+        //Retorna o objeto
+        return c;
+    }
+    
+    public List<Cliente> buscarCliente(){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -47,8 +84,7 @@ public class ClienteDAO {
         List<Cliente> clientes = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente WHERE nome=?");
-            stmt.setString(1, nome);
+            stmt = con.prepareStatement("SELECT * FROM cliente");
             rs = stmt.executeQuery();
             
             while(rs.next()){
@@ -57,6 +93,11 @@ public class ClienteDAO {
                 c.setId(rs.getInt("idcliente"));
                 c.setNome(rs.getString("nome"));
                 c.setCpf(rs.getString("cpf"));
+                c.setCidade(rs.getString("cidade"));
+                c.setEstado(rs.getString("estado"));
+                c.setLogradouro(rs.getString("logradouro"));
+                c.setNumero(rs.getString("numero"));
+                c.setCep(rs.getString("cep"));
                 c.setTelefone(rs.getString("telefone"));
                 c.setEmail(rs.getString("email"));
                 
