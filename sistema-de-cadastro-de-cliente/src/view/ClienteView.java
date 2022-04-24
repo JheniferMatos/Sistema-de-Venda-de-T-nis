@@ -13,7 +13,7 @@ import model.dao.ClienteDAO;
  * @author lohan
  */
 public class ClienteView extends javax.swing.JFrame {
-    public int op;
+    public String op;
     /**
      * Creates new form NewJFrame
      */
@@ -447,18 +447,20 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_estadoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        op = 2;
+        op = "alterar";
         habilitaItens();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        op = 3;
+        op = "incluir";
         habilitaItens();
+        limpaCampos();
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         switch(op){
-            case 3:
+            //inserção de cliente
+            case "incluir":
                 Cliente c = new Cliente();
                 ClienteDAO cdao = new ClienteDAO();
 
@@ -479,6 +481,7 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        desabilitaItens();
         if(tabela.getSelectedRow() != -1){
             Cliente c = new Cliente();
             ClienteDAO cdao = new ClienteDAO();
