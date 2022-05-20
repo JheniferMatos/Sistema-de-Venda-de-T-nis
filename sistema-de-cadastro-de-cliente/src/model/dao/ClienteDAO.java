@@ -118,7 +118,7 @@ public class ClienteDAO {
         
         try {
             stmt = con.prepareStatement("DELETE FROM cliente WHERE idcliente = ?");
-            stmt.setString(1, cliente.getId());
+            stmt.setInt(1, cliente.getId());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
@@ -134,7 +134,7 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPTADE cliente SET nome = ?, cpf = ?, cidade = ?, estado = ?, logradouro = ?, numero = ?, cep = ?, telefone = ?, email = ? WHERE idcliente = ?;");
+            stmt = con.prepareStatement("UPDATE loja.cliente SET nome = ?, cpf = ?, cidade = ?, estado = ?, logradouro = ?, numero = ?, cep = ?, telefone = ?, email = ? WHERE (idcliente = ?);");
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getCpf());
             stmt.setString(3, cliente.getCidade());
@@ -144,7 +144,7 @@ public class ClienteDAO {
             stmt.setString(7, cliente.getCep());
             stmt.setString(8, cliente.getTelefone());
             stmt.setString(9, cliente.getEmail());
-            stmt.setString(10, cliente.getId());
+            stmt.setInt(10, cliente.getId());
             
             stmt.executeUpdate();
 

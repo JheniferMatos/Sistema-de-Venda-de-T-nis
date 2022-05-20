@@ -42,7 +42,6 @@ public class ConnectionDataBase {
         try {
             if (stmt != null) {
                 stmt.close();
-                System.out.println("Conexao fechada");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDataBase.class.getName()).log(Level.SEVERE, null, ex);

@@ -12,7 +12,8 @@ import model.dao.ClienteDAO;
  *
  * @author lohan
  */
-public class ClienteView extends javax.swing.JFrame {
+public final class ClienteView extends javax.swing.JFrame {    
+    Cliente clienteSelecionado = new Cliente();
     public String op;
     /**
      * Creates new form NewJFrame
@@ -38,7 +39,7 @@ public class ClienteView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        busca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         nome = new javax.swing.JTextField();
@@ -99,11 +100,12 @@ public class ClienteView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(174, 174, 174));
-        jTextField1.setText("   Digite um nome");
-        jTextField1.setBorder(null);
-        jTextField1.setName("tfPesquisa"); // NOI18N
+        busca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        busca.setForeground(new java.awt.Color(174, 174, 174));
+        busca.setText("   Digite um nome");
+        busca.setToolTipText("");
+        busca.setBorder(null);
+        busca.setName("tfPesquisa"); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(42, 177, 187));
         jButton1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -120,7 +122,7 @@ public class ClienteView extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -131,7 +133,7 @@ public class ClienteView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -458,11 +460,12 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        Cliente c = new Cliente();
+        ClienteDAO cdao = new ClienteDAO();
         switch(op){
             //inserção de cliente
             case "incluir":
-                Cliente c = new Cliente();
-                ClienteDAO cdao = new ClienteDAO();
+                
 
                 c.setNome(nome.getText());
                 c.setCpf(cpf.getText());
@@ -475,33 +478,51 @@ public class ClienteView extends javax.swing.JFrame {
                 c.setEmail(email.getText());
                 cdao.inserirCliente(c);
                 limpaCampos();
-                preencheTabela();               
+                preencheTabela();
+                desabilitaItens();
+            break;
+            //inserção de cliente
+            case "alterar":
+                clienteSelecionado.setNome(nome.getText());
+                clienteSelecionado.setCpf(cpf.getText());
+                clienteSelecionado.setCidade(cidade.getText());
+                clienteSelecionado.setEstado(estado.getSelectedItem().toString());
+                clienteSelecionado.setLogradouro(lagradouro.getText());
+                clienteSelecionado.setNumero(numero.getText());
+                clienteSelecionado.setCep(cep.getText());
+                clienteSelecionado.setTelefone(telefone.getText());
+                clienteSelecionado.setEmail(email.getText());
+                cdao.alterarCliente(clienteSelecionado);
+                limpaCampos();
+                preencheTabela();  
+                desabilitaItens();
             break;
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
+    
+    /*Objeto do cliente selecionado declarado globalmente para 
+    alterar o excluir o mesmo pelo idcliente*/
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         desabilitaItens();
         if(tabela.getSelectedRow() != -1){
-            Cliente c = new Cliente();
             ClienteDAO cdao = new ClienteDAO();
             
             //Buscando cliente pelo cpf da linha selecionada
             
             //buscaClienteCpf constroi um objeto cliente, preenche o mesmo com o resultSet e faz o return
-            c = cdao.buscaClienteCpf(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+            clienteSelecionado = cdao.buscaClienteCpf(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
             
             //Preenchendo textfield's de acordo com o objeto retornado pelo buscaClienteCpf
-            nome.setText(c.getNome());
-            cpf.setText(c.getCpf());
-            cidade.setText(c.getCidade());
-            estado.setSelectedItem(c.getEstado());
-            lagradouro.setText(c.getLogradouro());
-            numero.setText(c.getNumero());
-            cep.setText(c.getCep());
-            telefone.setText(c.getTelefone());
-            email.setText(c.getEmail());
-            
+            nome.setText(clienteSelecionado.getNome());
+            cpf.setText(clienteSelecionado.getCpf());
+            cidade.setText(clienteSelecionado.getCidade());
+            estado.setSelectedItem(clienteSelecionado.getEstado());
+            lagradouro.setText(clienteSelecionado.getLogradouro());
+            numero.setText(clienteSelecionado.getNumero());
+            cep.setText(clienteSelecionado.getCep());
+            telefone.setText(clienteSelecionado.getTelefone());
+            email.setText(clienteSelecionado.getEmail());
             habilitaBtns();
         }
     }//GEN-LAST:event_tabelaMouseClicked
@@ -597,7 +618,6 @@ public class ClienteView extends javax.swing.JFrame {
         ClienteDAO cdao = new ClienteDAO();
         
         for(Cliente cliente: cdao.buscarCliente()){
-            
             modelo.addRow(new Object[]{
                 cliente.getCpf(),
                 cliente.getNome()
@@ -610,6 +630,7 @@ public class ClienteView extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnIncluir;
+    private javax.swing.JTextField busca;
     private javax.swing.JTextField cep;
     private javax.swing.JTextField cidade;
     private javax.swing.JTextField cpf;
@@ -632,7 +653,6 @@ public class ClienteView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField lagradouro;
     private javax.swing.JTextField nome;
     private javax.swing.JTextField numero;

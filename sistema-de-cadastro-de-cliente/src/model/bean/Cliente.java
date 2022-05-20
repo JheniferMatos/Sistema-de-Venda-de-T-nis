@@ -14,8 +14,8 @@ public class Cliente {
     private String email;
     
     //Métodos getter e setter
-    public String getId() {
-        return Integer.toString(id) ;
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
