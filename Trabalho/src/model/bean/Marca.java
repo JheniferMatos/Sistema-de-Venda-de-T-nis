@@ -1,23 +1,28 @@
 package model.bean;
 
 public class Marca {
-    private int cod;
+    private int codigo;
     private String nome;
-
-    public int getCod() {
-        return cod;
+    
+    public Marca(int nCodigo, String nNome){
+        this.codigo = nCodigo;
+        this.nome = nNome;
     }
 
-    public void setCod(int cod) {
-        this.cod = cod;
+    public int getCod() {
+        return codigo;
+    }
+
+    public void setCod(int nCod) {
+        this.codigo = nCod;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nNome) {
+        this.nome = nNome;
     }
     
     @Override
