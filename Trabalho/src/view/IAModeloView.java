@@ -6,34 +6,22 @@ package view;
 
 import javax.swing.JOptionPane;
 import model.bean.Marca;
+import model.bean.Modelo;
 import model.dao.MarcaDAO;
+import model.dao.ModeloDAO;
 
 /**
  *
  * @author fonte
  */
-public class IAMarcaView extends javax.swing.JFrame {
+public class IAModeloView extends javax.swing.JFrame {
 
-    private int operacaoID = 0;
-    
-    public IAMarcaView() {
+    /**
+     * Creates new form IAModeloView
+     */
+    public IAModeloView() {
         initComponents();
-    }
-    
-    public IAMarcaView(int operacao) {
-        initComponents();
-        this.operacaoID = operacao;
-        if(operacaoID == 0){
-            tituloL.setText("Nova marca");
-        }
-        else{
-            tituloL.setText("Alterar marca");
-            Marca marca = new Marca();
-            MarcaDAO mDao = new MarcaDAO();
-            marca = mDao.buscaMarcaCod(operacaoID);
-            System.out.print(marca.getNome());
-            nome.setText(marca.getNome());
-        }
+        preencheCombo();
     }
 
     /**
@@ -49,16 +37,21 @@ public class IAMarcaView extends javax.swing.JFrame {
         titulo = new javax.swing.JPanel();
         tituloL = new javax.swing.JLabel();
         corpo = new javax.swing.JPanel();
-        campoNome = new javax.swing.JPanel();
-        nome = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         op = new javax.swing.JPanel();
         confirmar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         cancelar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        campos = new javax.swing.JPanel();
+        comboMarca = new javax.swing.JComboBox<>();
+        descricao = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        preco = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         container.setBackground(new java.awt.Color(165, 87, 85));
 
@@ -66,7 +59,7 @@ public class IAMarcaView extends javax.swing.JFrame {
 
         tituloL.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         tituloL.setForeground(new java.awt.Color(255, 255, 255));
-        tituloL.setText("Nova Marca");
+        tituloL.setText("Novo modelo de tênis");
 
         javax.swing.GroupLayout tituloLayout = new javax.swing.GroupLayout(titulo);
         titulo.setLayout(tituloLayout);
@@ -74,43 +67,12 @@ public class IAMarcaView extends javax.swing.JFrame {
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(tituloL, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tituloL, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         tituloLayout.setVerticalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tituloL, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-        );
-
-        nome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Nome");
-
-        javax.swing.GroupLayout campoNomeLayout = new javax.swing.GroupLayout(campoNome);
-        campoNome.setLayout(campoNomeLayout);
-        campoNomeLayout.setHorizontalGroup(
-            campoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(campoNomeLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(campoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-        campoNomeLayout.setVerticalGroup(
-            campoNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, campoNomeLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
         );
 
         op.setBackground(new java.awt.Color(127, 77, 76));
@@ -145,11 +107,6 @@ public class IAMarcaView extends javax.swing.JFrame {
         );
 
         cancelar.setBackground(new java.awt.Color(101, 61, 60));
-        cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelarMouseClicked(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,6 +147,55 @@ public class IAMarcaView extends javax.swing.JFrame {
                 .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(128, Short.MAX_VALUE))
+        );
+
+        comboMarca.setToolTipText("");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Descrição");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Marca");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("Preço");
+
+        javax.swing.GroupLayout camposLayout = new javax.swing.GroupLayout(campos);
+        campos.setLayout(camposLayout);
+        camposLayout.setHorizontalGroup(
+            camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(camposLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(camposLayout.createSequentialGroup()
+                        .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(camposLayout.createSequentialGroup()
+                        .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        camposLayout.setVerticalGroup(
+            camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(camposLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -197,15 +203,15 @@ public class IAMarcaView extends javax.swing.JFrame {
         corpo.setLayout(corpoLayout);
         corpoLayout.setHorizontalGroup(
             corpoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(corpoLayout.createSequentialGroup()
-                .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corpoLayout.createSequentialGroup()
+                .addComponent(campos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(op, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         corpoLayout.setVerticalGroup(
             corpoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(campoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(op, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(campos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
@@ -231,53 +237,29 @@ public class IAMarcaView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeActionPerformed
-
     private void confirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmarMouseClicked
-        Marca marca = new Marca();
-        MarcaDAO mDao = new MarcaDAO();
+        Modelo modelo = new Modelo();
+        ModeloDAO mdao = new ModeloDAO();
         
-        if(operacaoID == 0){
-            if(nome.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Informe um nome!");
-            }
-            else{
-                marca.setNome(nome.getText());
-                mDao.inserirMarca(marca);
-                TabelaMarcaView frame = new TabelaMarcaView();
-                frame.setVisible(true);
-                IAMarcaView.this.dispose();
-            }
+        if(descricao.getText().trim().isEmpty() || preco.getText().trim().isEmpty() || comboMarca.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Informe os dados corretamente!");
         }
         else{
-            Object[] options = {"Sim", "Não"};
-            
-            if(JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == 0){
-                marca.setNome(nome.getText());
-                marca.setCod(operacaoID);
-                mDao.alterarMarca(marca);
-                TabelaMarcaView frame = new TabelaMarcaView();
-                frame.setVisible(true);
-                IAMarcaView.this.dispose();
-            }
+            modelo.setDesc(descricao.getText());
+            Marca marca = (Marca) comboMarca.getSelectedItem();
+            modelo.setCodMarca(marca.getCod());
+            modelo.setPreco(Float.parseFloat(preco.getText().replace(",", ".")));
+            mdao.inserirModelo(modelo);
         }
     }//GEN-LAST:event_confirmarMouseClicked
 
-    private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
-        TabelaMarcaView frame = new TabelaMarcaView();
-        frame.setVisible(true);
-        IAMarcaView.this.dispose();
-    }//GEN-LAST:event_cancelarMouseClicked
-    
     /**
      * @param args the command line arguments
      */
@@ -295,37 +277,48 @@ public class IAMarcaView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IAMarcaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IAModeloView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IAMarcaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IAModeloView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IAMarcaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IAModeloView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IAMarcaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IAModeloView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IAMarcaView().setVisible(true);
+                new IAModeloView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel campoNome;
+    private javax.swing.JPanel campos;
     private javax.swing.JPanel cancelar;
+    private javax.swing.JComboBox<Marca> comboMarca;
     private javax.swing.JPanel confirmar;
     private javax.swing.JPanel container;
     private javax.swing.JPanel corpo;
+    private javax.swing.JTextField descricao;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField nome;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel op;
+    private javax.swing.JTextField preco;
     private javax.swing.JPanel titulo;
     private javax.swing.JLabel tituloL;
     // End of variables declaration//GEN-END:variables
+    public void preencheCombo(){
+        MarcaDAO cdao = new MarcaDAO();
+        comboMarca.addItem(null);
+        for(Marca marca: cdao.buscarMarca()){
+            comboMarca.addItem(marca);            
+        }
+        comboMarca.setSelectedIndex(0);
+    }
 }

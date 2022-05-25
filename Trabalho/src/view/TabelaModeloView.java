@@ -4,6 +4,10 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.bean.Marca;
+import model.dao.MarcaDAO;
+
 /**
  *
  * @author fonte
@@ -15,6 +19,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
      */
     public TabelaModeloView() {
         initComponents();
+        preencheCombo();
     }
 
     /**
@@ -33,12 +38,10 @@ public class TabelaModeloView extends javax.swing.JFrame {
         elementos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        pesqMarca = new javax.swing.JTextField();
         codigo = new javax.swing.JTextField();
-        pesqMarcaBtn = new javax.swing.JPanel();
-        comboMarcas = new javax.swing.JComboBox<>();
-        pesqDesc = new javax.swing.JTextField();
-        pesqDescBtn = new javax.swing.JPanel();
+        comboMarca = new javax.swing.JComboBox<>();
+        descricao = new javax.swing.JTextField();
+        pesqBtn = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -88,32 +91,32 @@ public class TabelaModeloView extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tabela);
+        if (tabela.getColumnModel().getColumnCount() > 0) {
+            tabela.getColumnModel().getColumn(0).setMinWidth(100);
+            tabela.getColumnModel().getColumn(0).setMaxWidth(300);
+            tabela.getColumnModel().getColumn(1).setMinWidth(200);
+            tabela.getColumnModel().getColumn(1).setMaxWidth(300);
+            tabela.getColumnModel().getColumn(3).setMinWidth(100);
+            tabela.getColumnModel().getColumn(3).setMaxWidth(300);
+        }
 
-        pesqMarcaBtn.setBackground(new java.awt.Color(203, 203, 203));
+        comboMarca.setToolTipText("");
 
-        javax.swing.GroupLayout pesqMarcaBtnLayout = new javax.swing.GroupLayout(pesqMarcaBtn);
-        pesqMarcaBtn.setLayout(pesqMarcaBtnLayout);
-        pesqMarcaBtnLayout.setHorizontalGroup(
-            pesqMarcaBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pesqBtn.setBackground(new java.awt.Color(203, 203, 203));
+        pesqBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pesqBtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pesqBtnLayout = new javax.swing.GroupLayout(pesqBtn);
+        pesqBtn.setLayout(pesqBtnLayout);
+        pesqBtnLayout.setHorizontalGroup(
+            pesqBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 35, Short.MAX_VALUE)
         );
-        pesqMarcaBtnLayout.setVerticalGroup(
-            pesqMarcaBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        comboMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        pesqDescBtn.setBackground(new java.awt.Color(203, 203, 203));
-
-        javax.swing.GroupLayout pesqDescBtnLayout = new javax.swing.GroupLayout(pesqDescBtn);
-        pesqDescBtn.setLayout(pesqDescBtnLayout);
-        pesqDescBtnLayout.setHorizontalGroup(
-            pesqDescBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-        pesqDescBtnLayout.setVerticalGroup(
-            pesqDescBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pesqBtnLayout.setVerticalGroup(
+            pesqBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 35, Short.MAX_VALUE)
         );
 
@@ -130,29 +133,24 @@ public class TabelaModeloView extends javax.swing.JFrame {
             .addGroup(elementosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                     .addGroup(elementosLayout.createSequentialGroup()
                         .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(elementosLayout.createSequentialGroup()
-                                .addComponent(pesqMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pesqMarcaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(elementosLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(elementosLayout.createSequentialGroup()
-                                .addComponent(pesqDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                .addComponent(descricao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pesqDescBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(pesqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(elementosLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         elementosLayout.setVerticalGroup(
@@ -167,11 +165,9 @@ public class TabelaModeloView extends javax.swing.JFrame {
                 .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pesqMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pesqDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pesqDescBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pesqMarcaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pesqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -295,6 +291,17 @@ public class TabelaModeloView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void pesqBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesqBtnMouseClicked
+        Marca marca = new Marca();
+        String cod, desc, sql;
+        
+        cod = codigo.getText();
+        marca = (Marca) comboMarca.getSelectedItem();
+        desc = descricao.getText();
+        
+        
+    }//GEN-LAST:event_pesqBtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -333,9 +340,10 @@ public class TabelaModeloView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alterarBtn;
     private javax.swing.JTextField codigo;
-    private javax.swing.JComboBox<String> comboMarcas;
+    private javax.swing.JComboBox<Marca> comboMarca;
     private javax.swing.JPanel container;
     private javax.swing.JPanel corpo;
+    private javax.swing.JTextField descricao;
     private javax.swing.JPanel elementos;
     private javax.swing.JPanel excluirBtn;
     private javax.swing.JLabel jLabel1;
@@ -345,11 +353,16 @@ public class TabelaModeloView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel novoBtn;
     private javax.swing.JPanel op;
-    private javax.swing.JTextField pesqDesc;
-    private javax.swing.JPanel pesqDescBtn;
-    private javax.swing.JTextField pesqMarca;
-    private javax.swing.JPanel pesqMarcaBtn;
+    private javax.swing.JPanel pesqBtn;
     private javax.swing.JTable tabela;
     private javax.swing.JPanel titulo;
     // End of variables declaration//GEN-END:variables
+    public void preencheCombo(){
+        MarcaDAO cdao = new MarcaDAO();
+        comboMarca.addItem(null);
+        for(Marca marca: cdao.buscarMarca()){
+            comboMarca.addItem(marca);            
+        }
+        comboMarca.setSelectedIndex(0);
+    }
 }

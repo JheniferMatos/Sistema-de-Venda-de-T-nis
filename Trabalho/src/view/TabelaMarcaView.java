@@ -376,10 +376,10 @@ public class TabelaMarcaView extends javax.swing.JFrame {
         modelo.setNumRows(0);
         MarcaDAO cdao = new MarcaDAO();
         
-        for(Marca cliente: cdao.buscarMarca()){
+        for(Marca marca: cdao.buscarMarca()){
             modelo.addRow(new Object[]{
-                cliente.getCod(),
-                cliente.getNome()
+                marca.getCod(),
+                marca.getNome()
             });
         }
     }
