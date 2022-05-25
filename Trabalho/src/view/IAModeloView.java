@@ -88,6 +88,11 @@ public class IAModeloView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Confirmar");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                confirmarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout confirmarLayout = new javax.swing.GroupLayout(confirmar);
         confirmar.setLayout(confirmarLayout);
@@ -315,10 +320,9 @@ public class IAModeloView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
         MarcaDAO cdao = new MarcaDAO();
-        comboMarca.addItem(null);
         for(Marca marca: cdao.buscarMarca()){
             comboMarca.addItem(marca);            
         }
-        comboMarca.setSelectedIndex(0);
+        comboMarca.setSelectedIndex(-1);
     }
 }

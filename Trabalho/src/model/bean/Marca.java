@@ -4,11 +4,13 @@ public class Marca {
     private int codigo;
     private String nome;
     
+    public Marca(){}
+    
     public Marca(int nCodigo, String nNome){
         this.codigo = nCodigo;
         this.nome = nNome;
     }
-
+    
     public int getCod() {
         return codigo;
     }
