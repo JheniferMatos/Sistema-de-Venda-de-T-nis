@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import model.bean.Marca;
 
 public class MarcaDAO {
-    public List<Marca> buscarMarca(){
+    public List<Marca> buscaMarca(){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -21,7 +21,7 @@ public class MarcaDAO {
         List<Marca> marcas = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM mar_marca");
+            stmt = con.prepareStatement("SELECT * FROM mar_marca ORDER BY mar_nome ASC");
             rs = stmt.executeQuery();
             
             while(rs.next()){

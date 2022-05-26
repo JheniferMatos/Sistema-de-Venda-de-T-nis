@@ -138,6 +138,42 @@ public class ClienteDAO {
         return c;
     }
     
+    public List<Cliente> buscaClientes(){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Cliente> clientes = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM cli_cliente ORDER BY cli_nome ASC");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Cliente c = new Cliente();
+                
+                c.setCod(rs.getInt("cli_cod"));
+                c.setNome(rs.getString("cli_nome"));
+                c.setCpf(rs.getString("cli_cpf"));
+                c.setLogradouro(rs.getString("cli_logradouro"));
+                c.setNumero(rs.getInt("cli_numero"));
+                c.setCidade(rs.getString("cli_cidade"));
+                c.setEstado(rs.getString("cli_estado"));
+                c.setBairro(rs.getString("cli_bairro"));
+                c.setCep(rs.getString("cli_cep"));
+                c.setEmail(rs.getString("cli_email"));
+                
+                clientes.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt, rs);
+        }
+        
+        return clientes;
+    }
+    
     public void inserirCliente(Cliente cliente){
     }
     

@@ -40,7 +40,7 @@ public class VendaDAO {
 
         if (pesquisaPorCliente){
             if (condicoes.compareTo(vazio) != 0){
-                condicoes += "AND ";
+                condicoes += " AND ";
             }
             condicoes += "CLI.CLI_NOME LIKE '%" + nomeCliente + "%' ";
         }
@@ -51,7 +51,7 @@ public class VendaDAO {
             strDataInicio = Integer.toString(dataInicial.getMonth()) + "-";
             strDataInicio = Integer.toString(dataInicial.getDay());
             if (condicoes.compareTo(vazio) != 0){
-                condicoes += "AND ";
+                condicoes += " AND ";
             } 
             condicoes += "VEN.VEN_DATA_HORA >= '" + strDataInicio + "' ";
         }
@@ -62,7 +62,7 @@ public class VendaDAO {
             strDataFim = Integer.toString(dataFinal.getMonth()) + "-";
             strDataFim = Integer.toString(dataFinal.getDay());
             if (condicoes.compareTo(vazio) != 0){
-                condicoes += "AND ";
+                condicoes += " AND ";
             } 
             condicoes += "VEN.VEN_DATA_HORA <= '" + strDataFim + "' ";
         }
@@ -106,10 +106,10 @@ public class VendaDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO ven_venda(ven_cliente, ven_funcionario, ven_data_hora) VALUES (?, ?, '?')");
-            stmt.setString(1, Integer.toString(venda.getCliente().getCodigo()));
-            stmt.setString(2, Integer.toString(venda.getFuncionario().getCodigo()));
-            stmt.setString(3, venda.getData().toString());
+            stmt = con.prepareStatement("INSERT INTO ven_venda(ven_cliente, ven_funcionario, ven_data_hora) VALUES (?, ?, '2022-05-23 15:30:00')");
+            stmt.setString(1, Integer.toString(venda.getCliente().getCod()));
+            stmt.setString(2, Integer.toString(venda.getFuncionario().getCod()));
+            //stmt.setString(3, venda.getData().toString());
             
             stmt.executeUpdate();
 
@@ -127,8 +127,8 @@ public class VendaDAO {
         
         try {
             stmt = con.prepareStatement("UPDATE VEN_VENDA VEN SET VEN.VEN_CLIENTE = ?, VEN.VEN_FUNCIONARIO = ?, VEN.VEN_DATA_HORA = '?' WHERE VEN.VEN_CODIGO = ?");
-            stmt.setString(1, Integer.toString(venda.getCliente().getCodigo()));
-            stmt.setString(2, Integer.toString(venda.getFuncionario().getCodigo()));
+            stmt.setString(1, Integer.toString(venda.getCliente().getCod()));
+            stmt.setString(2, Integer.toString(venda.getFuncionario().getCod()));
             stmt.setString(3, venda.getData().toString());
             stmt.setString(4, Integer.toString(venda.getCod()));
             

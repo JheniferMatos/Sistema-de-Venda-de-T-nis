@@ -160,7 +160,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
                         .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(camposLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 227, Short.MAX_VALUE))
                             .addComponent(cliente))
                         .addGap(18, 18, 18)
                         .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -20,12 +20,14 @@ public class Cliente {
         this.nome = nNome;
         this.cpf = nCpf;
     }
+    
+    public Cliente(){}
 
-    public int getCodigo(){
+    public int getCod(){
         return this.codigo ;
     }
     
-    public void setCodigo(int nCodigo){
+    public void setCod(int nCodigo){
         this.codigo = nCodigo;
     }
     
@@ -107,5 +109,9 @@ public class Cliente {
     
     public void setTelefones(ArrayList<Telefone> nTelefones){
         this.telefones = nTelefones;
+    }
+    @Override
+    public String toString(){
+        return getNome();
     }
 }

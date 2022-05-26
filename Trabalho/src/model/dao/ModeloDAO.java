@@ -114,6 +114,39 @@ public class ModeloDAO {
         return modelo;
     }
     
+    public List<Modelo> buscaModelosCod(int codMarca){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Modelo> modelos = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM mte_modelo_tenis WHERE mte_marca = ?");
+            stmt.setString(1, Integer.toString(codMarca));
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Modelo m = new Modelo();
+                MarcaDAO mdao = new MarcaDAO();
+                
+                m.setCod(rs.getInt("mte_cod"));
+                m.setDesc(rs.getString("mte_descricao"));
+                m.setMarca(mdao.buscaMarcaCod(rs.getInt("mte_marca")));
+                m.setPreco(rs.getFloat("mte_preco"));
+
+                
+                modelos.add(m);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt, rs);
+        }
+        
+        return modelos;
+    }
+    
     public void inserirModelo(Modelo modelo){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
@@ -139,7 +172,7 @@ public class ModeloDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE MTE_MODELO_TENIS MTE SET MTE_DESCRICAO = '?', MTE_MARCA = ?, MTE_PRECO = ? WHERE MTE_COD = ?");
+            stmt = con.prepareStatement("UPDATE MTE_MODELO_TENIS MTE SET MTE_DESCRICAO = ?, MTE_MARCA = ?, MTE_PRECO = ? WHERE MTE_COD = ?");
             stmt.setString(1, modelo.getDesc());
             stmt.setString(2, Integer.toString(modelo.getMarca().getCod()));
             stmt.setString(3, Float.toString(modelo.getPreco()));

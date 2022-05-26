@@ -362,7 +362,7 @@ public class IAModeloView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
         MarcaDAO mdao = new MarcaDAO();
-        for(Marca marca: mdao.buscarMarca()){
+        for(Marca marca: mdao.buscaMarca()){
             comboMarca.addItem(marca);            
         }
         comboMarca.setSelectedIndex(-1);

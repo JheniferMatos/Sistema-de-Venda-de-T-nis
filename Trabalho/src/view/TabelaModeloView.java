@@ -457,7 +457,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
     public void preencheCombo(){
         MarcaDAO cdao = new MarcaDAO();
         comboMarca.addItem(null);
-        for(Marca marca: cdao.buscarMarca()){
+        for(Marca marca: cdao.buscaMarca()){
             comboMarca.addItem(marca);
         }
         comboMarca.setSelectedIndex(-1);

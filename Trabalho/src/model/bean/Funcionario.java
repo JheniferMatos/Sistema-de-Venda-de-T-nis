@@ -12,6 +12,7 @@ public class Funcionario {
     private boolean administrador;
     private boolean ativo;
     
+    
     public Funcionario(int nCodigo, String nUsuario, String nSenha, String nNome, String nCpf, String nEmail, boolean nAdministrador, boolean nAtivo){
         this.codigo = nCodigo;
         this.usuario = nUsuario;
@@ -23,11 +24,13 @@ public class Funcionario {
         this.ativo = nAtivo;
     }
 
-    public int getCodigo(){
+    public Funcionario() {}
+    
+    public int getCod(){
         return this.codigo ;
     }
     
-    public void setCodigo(int nCodigo){
+    public void setCod(int nCodigo){
         this.codigo = nCodigo;
     }
     
@@ -93,5 +96,9 @@ public class Funcionario {
     
     public void setAtivo(boolean nAtivo){
         this.ativo = nAtivo;
+    }
+    @Override
+    public String toString(){
+        return getNome();
     }
 }

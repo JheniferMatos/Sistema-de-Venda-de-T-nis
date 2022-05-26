@@ -4,6 +4,8 @@ public class ModeloVendido {
     private Modelo modelo;
     private int quantidade;
     
+    public ModeloVendido(){}
+    
     public ModeloVendido(Modelo nModelo, int nQuantidade){
         this.modelo = nModelo;
         this.quantidade = nQuantidade;
