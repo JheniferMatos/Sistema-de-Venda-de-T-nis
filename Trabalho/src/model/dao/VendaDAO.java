@@ -78,14 +78,14 @@ public class VendaDAO {
                 Date nDataHora = rs.getDate("ven_data_hora");
                 ClienteDAO cDAO = new ClienteDAO();
                 FuncionarioDAO fDAO = new FuncionarioDAO();
+                ModeloVendidoDAO mDAO = new ModeloVendidoDAO();
                 Venda v = new Venda();
                 
                 v.setCod(rs.getInt("VEN_COD"));
                 v.setCliente(cDAO.buscaClienteCod(rs.getInt("VEN_CLIENTE")));
                 v.setFuncionario(fDAO.buscaFuncionarioCod(rs.getInt("VEN_FUNCIONARIO")));
                 v.setData(nDataHora);
-
-                
+                v.setModelosVendidos(mDAO.buscarModelosVendidos(rs.getInt("VEN_COD")));                
                 vendas.add(v);
             }
         } catch (SQLException ex) {
