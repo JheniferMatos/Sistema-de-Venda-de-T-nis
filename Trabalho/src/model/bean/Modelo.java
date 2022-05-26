@@ -3,7 +3,7 @@ package model.bean;
 public class Modelo {
     private int cod;
     private String desc;
-    private int codMarca;
+    private Marca marca;
     private float preco;
 
     public int getCod() {
@@ -22,16 +22,12 @@ public class Modelo {
         this.desc = desc;
     }
 
-    public int getCodMarca() {
-        return codMarca;
-    }
-    
-    public String getCodMarcaS() {
-        return Integer.toString(codMarca);
+    public Marca getMarca() {
+        return marca;
     }
 
-    public void setCodMarca(int codMarca) {
-        this.codMarca = codMarca;
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 
     public float getPreco() {

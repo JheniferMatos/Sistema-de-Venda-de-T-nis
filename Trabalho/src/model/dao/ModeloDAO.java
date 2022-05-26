@@ -47,6 +47,7 @@ public class ModeloDAO {
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        MarcaDAO mdao = new MarcaDAO();
         Modelo modelo = new Modelo();
         
         try {
@@ -59,7 +60,7 @@ public class ModeloDAO {
                 //Objeto cliente sendo preenchido pelo resultSet obtido
                 modelo.setCod(rs.getInt("mte_cod"));
                 modelo.setDesc(rs.getString("mte_descricao"));
-                modelo.setCodMarca(rs.getInt("mte_marca"));
+                modelo.setMarca(mdao.buscaMarcaCod(rs.getInt("mte_marca")));
                 modelo.setPreco(rs.getFloat("mte_preco"));
             }               
         } catch (SQLException ex) {
@@ -79,7 +80,7 @@ public class ModeloDAO {
         try {
             stmt = con.prepareStatement("INSERT INTO mte_modelo_tenis (mte_descricao, mte_marca, mte_preco) VALUES (?, ?, ?)");
             stmt.setString(1, modelo.getDesc());
-            stmt.setString(2, Integer.toString(modelo.getCodMarca()));
+            stmt.setString(2, Integer.toString(modelo.getMarca().getCod()));
             stmt.setString(3, Float.toString(modelo.getPreco()));
             
             stmt.executeUpdate();

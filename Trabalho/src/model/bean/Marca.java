@@ -35,6 +35,9 @@ public class Marca {
     @Override
     public boolean equals(Object o) {
        Marca marca = (Marca) o;
+       if(o == null){
+           return false;
+       }
        return this.getNome().equals(marca.getNome());
     }
 }

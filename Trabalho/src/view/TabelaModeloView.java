@@ -385,7 +385,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
     private void alterarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarBtnMouseClicked
         if(tabela.getSelectedRow() == -1){
             //IAModeloView frame = new IAModeloView(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-            IAModeloView frame = new IAModeloView(1);
+            IAModeloView frame = new IAModeloView(7);
             frame.setVisible(true);
             TabelaModeloView.this.dispose();
         }
@@ -455,9 +455,10 @@ public class TabelaModeloView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
         MarcaDAO cdao = new MarcaDAO();
+        comboMarca.addItem(null);
         for(Marca marca: cdao.buscarMarca()){
-            comboMarca.addItem(marca);            
+            comboMarca.addItem(marca);
         }
-        //comboMarca.setSelectedIndex(-1);
+        comboMarca.setSelectedIndex(-1);
     }
 }

@@ -35,7 +35,7 @@ public class IAModeloView extends javax.swing.JFrame {
             modelo = mDao.buscaModeloCod(operacaoID);
             
             //Preenchendo campos 
-            comboMarca.setSelectedItem(mdao.buscaMarcaCod(modelo.getCodMarca()));               
+            comboMarca.setSelectedItem(modelo.getMarca());               
             descricao.setText(modelo.getDesc());
             preco.setText(Float.toString(modelo.getPreco()));
         }
@@ -287,9 +287,24 @@ public class IAModeloView extends javax.swing.JFrame {
             else{
                 modelo.setDesc(descricao.getText());
                 Marca marca = (Marca) comboMarca.getSelectedItem();
-                modelo.setCodMarca(marca.getCod());
+                modelo.setMarca(marca);
                 modelo.setPreco(Float.parseFloat(preco.getText().replace(",", ".")));
                 mdao.inserirModelo(modelo);
+                TabelaModeloView frame = new TabelaModeloView();
+                frame.setVisible(true);
+                IAModeloView.this.dispose();
+            }
+        }
+        else{
+            Object[] options = {"Sim", "Não"};
+            
+            if(JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == 0){
+                /*modelo.setNome(nome.getText());
+                marca.setCod(operacaoID);
+                mDao.alterarMarca(marca);
+                TabelaMarcaView frame = new TabelaMarcaView();
+                frame.setVisible(true);
+                IAMarcaView.this.dispose();*/
             }
         }
     }//GEN-LAST:event_confirmarMouseClicked
@@ -358,5 +373,6 @@ public class IAModeloView extends javax.swing.JFrame {
         for(Marca marca: mdao.buscarMarca()){
             comboMarca.addItem(marca);            
         }
+        comboMarca.setSelectedIndex(-1);
     }
 }
