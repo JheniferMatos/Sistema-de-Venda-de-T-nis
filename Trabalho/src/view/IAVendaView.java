@@ -20,6 +20,7 @@ import model.bean.Venda;
 import model.dao.ClienteDAO;
 import model.dao.FuncionarioDAO;
 import model.dao.ModeloDAO;
+import model.dao.ModeloVendidoDAO;
 import model.dao.VendaDAO;
 
 /**
@@ -28,6 +29,7 @@ import model.dao.VendaDAO;
  */
 public class IAVendaView extends javax.swing.JFrame {
     List<ModeloVendido> modelosVendidos = new ArrayList<>();
+    float vTotal = 0;
     
     public IAVendaView() {
         initComponents();
@@ -51,7 +53,7 @@ public class IAVendaView extends javax.swing.JFrame {
         corpo = new javax.swing.JPanel();
         elementos = new javax.swing.JPanel();
         dataIn = new javax.swing.JFormattedTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        horaIn = new javax.swing.JFormattedTextField();
         comboFuncionario = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -118,7 +120,7 @@ public class IAVendaView extends javax.swing.JFrame {
         }
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+            horaIn.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -234,7 +236,7 @@ public class IAVendaView extends javax.swing.JFrame {
                                 .addComponent(dataIn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(horaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)))
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
@@ -280,7 +282,7 @@ public class IAVendaView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
@@ -454,12 +456,13 @@ public class IAVendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisaModeloActionPerformed
 
     private void btnIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIncluirMouseClicked
+
         if(comboMarca.getSelectedItem() == null || comboModelo.getSelectedItem() == null || qtd.getValue().toString().equals("0")){
             JOptionPane.showMessageDialog(null, "Informe os dados corretamente!");
         }
         else{
             ModeloVendido modeloV = new ModeloVendido((Modelo)comboModelo.getSelectedItem(), Integer.parseInt(qtd.getValue().toString()));
-        
+            vTotal = 0;
             modelosVendidos.add(modeloV);        
 
             //Codigo, marca, modelo, quantidade, valor unitario, valor total
@@ -475,25 +478,38 @@ public class IAVendaView extends javax.swing.JFrame {
                     modeloVd.getModelo().getPreco(),
                     modeloVd.getModelo().getPreco()*modeloVd.getQuantidade()
                 });
+                vTotal += modeloVd.getModelo().getPreco()*modeloVd.getQuantidade();
             }
-        }     
+        }
+        valorTotal.setText("R$ "+Float.toString(vTotal));
     }//GEN-LAST:event_btnIncluirMouseClicked
 
     private void comboMarcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarcaItemStateChanged
         comboModelo.removeAllItems();
         comboModelo.enable(false);
+        qtd.setValue(0);
     }//GEN-LAST:event_comboMarcaItemStateChanged
 
     private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
-        //Cadastrando venda
-        VendaDAO vdao = new VendaDAO();
-        Venda venda = new Venda();
-        venda.setCliente((Cliente) comboCliente.getSelectedItem());
-        venda.setFuncionario((Funcionario) comboFuncionario.getSelectedItem());
-        venda.setModelosVendidos((ArrayList<ModeloVendido>) modelosVendidos);
-        vdao.inserirVenda(venda);
-        
-        
+        if(modelosVendidos.isEmpty() || dataIn.getText().replace("/", "").trim().isEmpty() || horaIn.getText().replace(":", "").trim().isEmpty() || comboFuncionario.getSelectedItem() == null || comboCliente.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(null, "Informe os dados corretamente!");
+        }
+        else{
+            //Cadastrando venda
+            VendaDAO vdao = new VendaDAO();
+            Venda venda = new Venda();
+            int idVenda;
+            venda.setCliente((Cliente) comboCliente.getSelectedItem());
+            venda.setFuncionario((Funcionario) comboFuncionario.getSelectedItem());
+            venda.setModelosVendidos((ArrayList<ModeloVendido>) modelosVendidos);
+            idVenda = vdao.inserirVenda(venda);
+
+            //Cadastrando modelos vendidos
+            ModeloVendidoDAO mdao = new ModeloVendidoDAO();
+            for(int i = 0; i < modelosVendidos.size(); i++){
+                mdao.inserirModeloVendido(idVenda, modelosVendidos.get(i).getModelo().getCod(), modelosVendidos.get(i).getQuantidade());
+            }
+        }
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
     /**
@@ -544,7 +560,7 @@ public class IAVendaView extends javax.swing.JFrame {
     private javax.swing.JPanel corpo;
     private javax.swing.JFormattedTextField dataIn;
     private javax.swing.JPanel elementos;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField horaIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

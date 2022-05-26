@@ -145,7 +145,7 @@
                                           <Component id="dataIn" min="-2" pref="112" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jFormattedTextField1" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                              <Component id="horaIn" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -208,7 +208,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="dataIn" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="jFormattedTextField1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="horaIn" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="comboFuncionario" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="comboCliente" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
@@ -249,7 +249,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+                <Component class="javax.swing.JFormattedTextField" name="horaIn">
                   <Properties>
                     <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                       <Format format="##:##:##" subtype="-1" type="5"/>

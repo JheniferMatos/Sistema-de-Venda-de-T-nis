@@ -101,9 +101,10 @@ public class VendaDAO {
     
     }*/
     
-    public void inserirVenda(Venda venda){
+    public int inserirVenda(Venda venda){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
+        int novoId = 0;
         
         try {
             stmt = con.prepareStatement("INSERT INTO ven_venda(ven_cliente, ven_funcionario, ven_data_hora) VALUES (?, ?, '2022-05-23 15:30:00')");
@@ -112,13 +113,18 @@ public class VendaDAO {
             //stmt.setString(3, venda.getData().toString());
             
             stmt.executeUpdate();
-
+            ResultSet resultSet = stmt.executeQuery("SELECT LAST_INSERT_ID()");
+            if (resultSet.next()) {
+                novoId = resultSet.getInt("LAST_INSERT_ID()");
+            }
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+            return novoId;
         } catch (SQLException ex) {
             Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             ConnectionDataBase.closeConnection(con, stmt);
         }
+        return 0;
     }
     
     public void alterarVenda(Venda venda){
