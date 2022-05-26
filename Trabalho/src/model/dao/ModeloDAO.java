@@ -14,33 +14,74 @@ import model.bean.Marca;
 import model.bean.Modelo;
 
 public class ModeloDAO {
-    public List<Marca> buscarModelo(){
+    public List<Modelo> buscarModelos(int codigoModelo, int codigoMarca, String descricao){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<Marca> marcas = new ArrayList<>();
+        List<Modelo> modelos = new ArrayList<>();
+        
+        //Montar string SQL
+        String strSql, condicoes, vazio;
+        strSql = "SELECT MTE.MTE_COD, MTE. MTE_DESCRICAO, MTE.MTE_PRECO, MAR.MAR_COD, MAR.MAR_NOME ";
+        strSql += "FROM MTE_MODELO_TENIS MTE INNER JOIN MAR_MARCA MAR ON MTE.MTE_MARCA = MAR.MAR_COD ";
+        vazio = "";
+        condicoes = "";
+        
+        boolean pesquisaPorCodigo, pesquisaPorMarca, pesquisaPorDescricao;
+        pesquisaPorCodigo = codigoModelo != 0;
+        pesquisaPorMarca = codigoMarca != 0;
+        pesquisaPorDescricao = descricao.compareTo(vazio) != 0;
+        
+        if (pesquisaPorCodigo){
+            condicoes += "MTE.MTE_COD = " + Integer.toString(codigoModelo);
+        } 
+
+        if (pesquisaPorMarca){
+            if (condicoes.compareTo(vazio) != 0){
+                condicoes += "AND ";
+            }
+            condicoes += "MAR.MAR_COD = " + Integer.toString(codigoMarca);
+        }
+
+        if (pesquisaPorDescricao){
+            if (condicoes.compareTo(vazio) != 0){
+                condicoes += "AND ";
+            } 
+            condicoes += "MTE.MTE_DESCRICAO LIKE '%" + descricao + "%'";
+        }
+        
+        if (condicoes.compareTo(vazio) != 0){
+            strSql += "WHERE " + condicoes;
+        } 
+        
+        
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM mar_marca");
+            stmt = con.prepareStatement(strSql);
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                Marca m = new Marca();
+                Marca ma = new Marca();
+                Modelo mo = new Modelo();
                 
-                m.setCod(rs.getInt("mar_cod"));
-                m.setNome(rs.getString("mar_nome"));
-
+                ma.setCod(rs.getInt("mar_cod"));
+                ma.setNome(rs.getString("mar_nome"));
                 
-                marcas.add(m);
+                mo.setCod(rs.getInt("mte_cod"));
+                mo.setDesc(rs.getString("mte_descricao"));
+                mo.setPreco(rs.getFloat("mte_preco"));
+                mo.setMarca(ma);
+                
+                modelos.add(mo);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             ConnectionDataBase.closeConnection(con, stmt, rs);
         }
         
-        return marcas;
+        return modelos;
     }
     
     public Modelo buscaModeloCod(int Cod){
