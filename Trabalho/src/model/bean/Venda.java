@@ -1,4 +1,5 @@
 package model.bean;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Venda{
@@ -6,6 +7,7 @@ public class Venda{
     private Cliente cliente;
     private Funcionario funcionario;
     private Date dataHora;
+    private ArrayList<ModeloVendido> modelosVendidos;
 
     /*public Venda(int nCodigo, Cliente nCliente, Funcionario nFuncionario, Date nDataHora){
         this.codigo = nCodigo;
@@ -44,5 +46,13 @@ public class Venda{
     
     public void setData(Date nDataHora){
         this.dataHora = nDataHora;
+    }
+
+    public ArrayList<ModeloVendido> getModelosVendidos() {
+        return modelosVendidos;
+    }
+
+    public void setModelosVendidos(ArrayList<ModeloVendido> modelosVendidos) {
+        this.modelosVendidos = modelosVendidos;
     }
 }
