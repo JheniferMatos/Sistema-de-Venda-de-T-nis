@@ -5,8 +5,11 @@
 package view;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.bean.Marca;
+import model.bean.Modelo;
 import model.dao.MarcaDAO;
+import model.dao.ModeloDAO;
 
 /**
  *
@@ -52,7 +55,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
         alterarBtn = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         excluirBtn = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -216,10 +219,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
         );
         novoBtnLayout.setVerticalGroup(
             novoBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, novoBtnLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         alterarBtn.setBackground(new java.awt.Color(101, 61, 60));
@@ -244,30 +244,44 @@ public class TabelaModeloView extends javax.swing.JFrame {
         alterarBtnLayout.setHorizontalGroup(
             alterarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, alterarBtnLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(99, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(35, 35, 35))
         );
         alterarBtnLayout.setVerticalGroup(
             alterarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(alterarBtnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         excluirBtn.setBackground(new java.awt.Color(101, 61, 60));
         excluirBtn.setPreferredSize(new java.awt.Dimension(103, 60));
+        excluirBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                excluirBtnMouseClicked(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Excluir");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                excluirBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout excluirBtnLayout = new javax.swing.GroupLayout(excluirBtn);
         excluirBtn.setLayout(excluirBtnLayout);
         excluirBtnLayout.setHorizontalGroup(
             excluirBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, excluirBtnLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(35, 35, 35))
         );
         excluirBtnLayout.setVerticalGroup(
             excluirBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout opLayout = new javax.swing.GroupLayout(op);
@@ -277,9 +291,9 @@ public class TabelaModeloView extends javax.swing.JFrame {
             .addGroup(opLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(opLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(novoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                    .addComponent(alterarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                    .addComponent(excluirBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                    .addComponent(novoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(alterarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(excluirBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
                 .addContainerGap())
         );
         opLayout.setVerticalGroup(
@@ -291,7 +305,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
                 .addComponent(alterarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(excluirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout corpoLayout = new javax.swing.GroupLayout(corpo);
@@ -306,7 +320,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
         );
         corpoLayout.setVerticalGroup(
             corpoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(op, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+            .addComponent(op, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
             .addGroup(corpoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(elementos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -328,34 +342,15 @@ public class TabelaModeloView extends javax.swing.JFrame {
                 .addComponent(corpo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Novo");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5novoMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(437, 437, 437)
-                    .addComponent(jLabel5)
-                    .addContainerGap(437, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(277, 277, 277)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(278, Short.MAX_VALUE)))
         );
 
         pack();
@@ -363,18 +358,8 @@ public class TabelaModeloView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pesqBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesqBtnMouseClicked
-        Marca marca = new Marca();
-        String cod, desc, sql;
-        
-        cod = codigo.getText();
-        marca = (Marca) comboMarca.getSelectedItem();
-        desc = descricao.getText();
-        
+        pesquisaModelo();
     }//GEN-LAST:event_pesqBtnMouseClicked
-
-    private void jLabel5novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5novoMouseClicked
-        
-    }//GEN-LAST:event_jLabel5novoMouseClicked
 
     private void novoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoBtnMouseClicked
         IAModeloView frame = new IAModeloView(0);
@@ -383,9 +368,9 @@ public class TabelaModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_novoBtnMouseClicked
 
     private void alterarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarBtnMouseClicked
-        if(tabela.getSelectedRow() == -1){
+        if(tabela.getSelectedRow() != -1){
             //IAModeloView frame = new IAModeloView(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-            IAModeloView frame = new IAModeloView(7);
+            IAModeloView frame = new IAModeloView(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             frame.setVisible(true);
             TabelaModeloView.this.dispose();
         }
@@ -393,6 +378,22 @@ public class TabelaModeloView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma marca!");
         }
     }//GEN-LAST:event_alterarBtnMouseClicked
+
+    private void excluirBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirBtnMouseClicked
+        ModeloDAO mdao = new ModeloDAO();
+                
+        if(tabela.getSelectedRow() != -1){
+            Object[] options = {"Sim", "Não"};
+            int op = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if(op == 0){
+                mdao.excluirModelo(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                pesquisaModelo();
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Selecione uma marca!");
+        }
+    }//GEN-LAST:event_excluirBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -442,10 +443,10 @@ public class TabelaModeloView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel novoBtn;
     private javax.swing.JPanel op;
@@ -460,5 +461,35 @@ public class TabelaModeloView extends javax.swing.JFrame {
             comboMarca.addItem(marca);
         }
         comboMarca.setSelectedIndex(-1);
+    }
+    
+    public void pesquisaModelo(){
+        ModeloDAO mdao = new ModeloDAO();
+        Marca marca = new Marca();
+        String desc;
+        int codModelo, codMarca;
+        
+
+        if(descricao.getText() == null || descricao.getText().trim().equals("")) desc = "";
+        else desc = descricao.getText();
+        
+        if(codigo.getText() == null || codigo.getText().trim().equals("")) codModelo = 0;
+        else codModelo = Integer.parseInt(codigo.getText());
+        
+        marca = (Marca) comboMarca.getSelectedItem();
+        if(marca == null) codMarca = 0;
+        else codMarca = marca.getCod();
+        
+        DefaultTableModel modeloTb = (DefaultTableModel) tabela.getModel();
+        modeloTb.setNumRows(0);
+        
+        for(Modelo modelo: mdao.buscarModelos(codModelo, codMarca, desc)){
+            modeloTb.addRow(new Object[]{
+                modelo.getCod(),
+                modelo.getMarca(),
+                modelo.getDesc(),
+                modelo.getPreco()
+            });
+        }
     }
 }
