@@ -25,6 +25,10 @@ public class Modelo {
     public int getCodMarca() {
         return codMarca;
     }
+    
+    public String getCodMarcaS() {
+        return Integer.toString(codMarca);
+    }
 
     public void setCodMarca(int codMarca) {
         this.codMarca = codMarca;

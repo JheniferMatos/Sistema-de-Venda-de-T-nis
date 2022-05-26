@@ -23,15 +23,13 @@ public class IAMarcaView extends javax.swing.JFrame {
     public IAMarcaView(int operacao) {
         initComponents();
         this.operacaoID = operacao;
-        if(operacaoID == 0){
-            tituloL.setText("Nova marca");
-        }
-        else{
+        if(operacaoID != 0){
             tituloL.setText("Alterar marca");
             Marca marca = new Marca();
             MarcaDAO mDao = new MarcaDAO();
             marca = mDao.buscaMarcaCod(operacaoID);
-            System.out.print(marca.getNome());
+            
+            //Preenchendo campos
             nome.setText(marca.getNome());
         }
     }

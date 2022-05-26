@@ -45,10 +45,14 @@ public class TabelaModeloView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         op = new javax.swing.JPanel();
         novoBtn = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         alterarBtn = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         excluirBtn = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -126,6 +130,9 @@ public class TabelaModeloView extends javax.swing.JFrame {
 
         jLabel4.setText("Descrição");
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setText("Ferramenta de busca");
+
         javax.swing.GroupLayout elementosLayout = new javax.swing.GroupLayout(elementos);
         elementos.setLayout(elementosLayout);
         elementosLayout.setHorizontalGroup(
@@ -150,13 +157,18 @@ public class TabelaModeloView extends javax.swing.JFrame {
                                 .addComponent(pesqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(elementosLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(elementosLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         elementosLayout.setVerticalGroup(
             elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, elementosLayout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
@@ -178,30 +190,70 @@ public class TabelaModeloView extends javax.swing.JFrame {
 
         novoBtn.setBackground(new java.awt.Color(101, 61, 60));
         novoBtn.setPreferredSize(new java.awt.Dimension(103, 60));
+        novoBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                novoBtnMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Novo");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                novoBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout novoBtnLayout = new javax.swing.GroupLayout(novoBtn);
         novoBtn.setLayout(novoBtnLayout);
         novoBtnLayout.setHorizontalGroup(
             novoBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, novoBtnLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(35, 35, 35))
         );
         novoBtnLayout.setVerticalGroup(
             novoBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, novoBtnLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         alterarBtn.setBackground(new java.awt.Color(101, 61, 60));
         alterarBtn.setPreferredSize(new java.awt.Dimension(103, 60));
+        alterarBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                alterarBtnMouseClicked(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Alterar");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                alterarBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout alterarBtnLayout = new javax.swing.GroupLayout(alterarBtn);
         alterarBtn.setLayout(alterarBtnLayout);
         alterarBtnLayout.setHorizontalGroup(
             alterarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, alterarBtnLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(35, 35, 35))
         );
         alterarBtnLayout.setVerticalGroup(
             alterarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(alterarBtnLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         excluirBtn.setBackground(new java.awt.Color(101, 61, 60));
@@ -239,7 +291,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
                 .addComponent(alterarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(excluirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout corpoLayout = new javax.swing.GroupLayout(corpo);
@@ -276,15 +328,34 @@ public class TabelaModeloView extends javax.swing.JFrame {
                 .addComponent(corpo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Novo");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5novoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(437, 437, 437)
+                    .addComponent(jLabel5)
+                    .addContainerGap(437, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(277, 277, 277)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(278, Short.MAX_VALUE)))
         );
 
         pack();
@@ -299,8 +370,29 @@ public class TabelaModeloView extends javax.swing.JFrame {
         marca = (Marca) comboMarca.getSelectedItem();
         desc = descricao.getText();
         
-        
     }//GEN-LAST:event_pesqBtnMouseClicked
+
+    private void jLabel5novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5novoMouseClicked
+        
+    }//GEN-LAST:event_jLabel5novoMouseClicked
+
+    private void novoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoBtnMouseClicked
+        IAModeloView frame = new IAModeloView(0);
+        frame.setVisible(true);
+        TabelaModeloView.this.dispose();
+    }//GEN-LAST:event_novoBtnMouseClicked
+
+    private void alterarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarBtnMouseClicked
+        if(tabela.getSelectedRow() == -1){
+            //IAModeloView frame = new IAModeloView(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            IAModeloView frame = new IAModeloView(1);
+            frame.setVisible(true);
+            TabelaModeloView.this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Selecione uma marca!");
+        }
+    }//GEN-LAST:event_alterarBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -350,6 +442,10 @@ public class TabelaModeloView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel novoBtn;
     private javax.swing.JPanel op;
@@ -359,10 +455,9 @@ public class TabelaModeloView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
         MarcaDAO cdao = new MarcaDAO();
-        comboMarca.addItem(null);
         for(Marca marca: cdao.buscarMarca()){
             comboMarca.addItem(marca);            
         }
-        comboMarca.setSelectedIndex(0);
+        //comboMarca.setSelectedIndex(-1);
     }
 }

@@ -31,4 +31,10 @@ public class Marca {
     public String toString(){
         return getNome();
     }
+    
+    @Override
+    public boolean equals(Object o) {
+       Marca marca = (Marca) o;
+       return this.getNome().equals(marca.getNome());
+    }
 }

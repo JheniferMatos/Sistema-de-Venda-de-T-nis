@@ -16,12 +16,29 @@ import model.dao.ModeloDAO;
  */
 public class IAModeloView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form IAModeloView
-     */
+    private int operacaoID;
+    
     public IAModeloView() {
         initComponents();
         preencheCombo();
+    }
+    
+    public IAModeloView(int operacao){
+        initComponents();
+        MarcaDAO mdao = new MarcaDAO();
+        this.operacaoID = operacao;
+        preencheCombo();
+        if(operacaoID != 0){
+            tituloL.setText("Alterar modelo de tênis");
+            Modelo modelo = new Modelo();
+            ModeloDAO mDao = new ModeloDAO();
+            modelo = mDao.buscaModeloCod(operacaoID);
+            
+            //Preenchendo campos 
+            comboMarca.setSelectedItem(mdao.buscaMarcaCod(modelo.getCodMarca()));               
+            descricao.setText(modelo.getDesc());
+            preco.setText(Float.toString(modelo.getPreco()));
+        }
     }
 
     /**
@@ -112,10 +129,20 @@ public class IAModeloView extends javax.swing.JFrame {
         );
 
         cancelar.setBackground(new java.awt.Color(101, 61, 60));
+        cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelarMouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Cancelar");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout cancelarLayout = new javax.swing.GroupLayout(cancelar);
         cancelar.setLayout(cancelarLayout);
@@ -253,17 +280,25 @@ public class IAModeloView extends javax.swing.JFrame {
         Modelo modelo = new Modelo();
         ModeloDAO mdao = new ModeloDAO();
         
-        if(descricao.getText().trim().isEmpty() || preco.getText().trim().isEmpty() || comboMarca.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Informe os dados corretamente!");
-        }
-        else{
-            modelo.setDesc(descricao.getText());
-            Marca marca = (Marca) comboMarca.getSelectedItem();
-            modelo.setCodMarca(marca.getCod());
-            modelo.setPreco(Float.parseFloat(preco.getText().replace(",", ".")));
-            mdao.inserirModelo(modelo);
+        if(operacaoID == 0){
+            if(descricao.getText().trim().isEmpty() || preco.getText().trim().isEmpty() || comboMarca.getSelectedIndex() == 0){
+                JOptionPane.showMessageDialog(null, "Informe os dados corretamente!");
+            }
+            else{
+                modelo.setDesc(descricao.getText());
+                Marca marca = (Marca) comboMarca.getSelectedItem();
+                modelo.setCodMarca(marca.getCod());
+                modelo.setPreco(Float.parseFloat(preco.getText().replace(",", ".")));
+                mdao.inserirModelo(modelo);
+            }
         }
     }//GEN-LAST:event_confirmarMouseClicked
+
+    private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
+        TabelaModeloView frame = new TabelaModeloView();
+        frame.setVisible(true);
+        IAModeloView.this.dispose();
+    }//GEN-LAST:event_cancelarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -319,10 +354,9 @@ public class IAModeloView extends javax.swing.JFrame {
     private javax.swing.JLabel tituloL;
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
-        MarcaDAO cdao = new MarcaDAO();
-        for(Marca marca: cdao.buscarMarca()){
+        MarcaDAO mdao = new MarcaDAO();
+        for(Marca marca: mdao.buscarMarca()){
             comboMarca.addItem(marca);            
         }
-        comboMarca.setSelectedIndex(-1);
     }
 }

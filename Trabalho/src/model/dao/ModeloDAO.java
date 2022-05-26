@@ -14,7 +14,7 @@ import model.bean.Marca;
 import model.bean.Modelo;
 
 public class ModeloDAO {
-    public List<Marca> buscarMarca(){
+    public List<Marca> buscarModelo(){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -35,13 +35,43 @@ public class ModeloDAO {
                 marcas.add(m);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             ConnectionDataBase.closeConnection(con, stmt, rs);
         }
         
         return marcas;
     }
+    
+    public Modelo buscaModeloCod(int Cod){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Modelo modelo = new Modelo();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM mte_modelo_tenis WHERE mte_cod = ?");
+            stmt.setString(1, Integer.toString(Cod));
+            rs = stmt.executeQuery();
+            
+            
+            while(rs.next()){           
+                //Objeto cliente sendo preenchido pelo resultSet obtido
+                modelo.setCod(rs.getInt("mte_cod"));
+                modelo.setDesc(rs.getString("mte_descricao"));
+                modelo.setCodMarca(rs.getInt("mte_marca"));
+                modelo.setPreco(rs.getFloat("mte_preco"));
+            }               
+        } catch (SQLException ex) {
+            Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt, rs);
+        }
+        
+        //Retorna o objeto
+        return modelo;
+    }
+    
     public void inserirModelo(Modelo modelo){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
