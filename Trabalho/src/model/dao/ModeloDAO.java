@@ -133,4 +133,24 @@ public class ModeloDAO {
             ConnectionDataBase.closeConnection(con, stmt);
         }
     }
+    
+    public void alterarModelo(Modelo modelo){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE MTE_MODELO_TENIS MTE SET MTE_DESCRICAO = '?', MTE_MARCA = ?, MTE_PRECO = ?");
+            stmt.setString(1, modelo.getDesc());
+            stmt.setString(2, Integer.toString(modelo.getMarca().getCod()));
+            stmt.setString(3, Float.toString(modelo.getPreco()));
+            
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
+    }
 }
