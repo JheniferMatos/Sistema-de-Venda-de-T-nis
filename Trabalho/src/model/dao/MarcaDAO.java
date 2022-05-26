@@ -117,7 +117,9 @@ public class MarcaDAO {
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir!");
+        }
+        finally{
             ConnectionDataBase.closeConnection(con, stmt);
         }
     }

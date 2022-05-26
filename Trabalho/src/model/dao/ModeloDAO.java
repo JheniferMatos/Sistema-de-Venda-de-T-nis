@@ -39,20 +39,20 @@ public class ModeloDAO {
 
         if (pesquisaPorMarca){
             if (condicoes.compareTo(vazio) != 0){
-                condicoes += "AND ";
+                condicoes += " AND ";
             }
             condicoes += "MAR.MAR_COD = " + Integer.toString(codigoMarca) + " ";
         }
 
         if (pesquisaPorDescricao){
             if (condicoes.compareTo(vazio) != 0){
-                condicoes += "AND ";
+                condicoes += " AND ";
             } 
             condicoes += "MTE.MTE_DESCRICAO LIKE '%" + descricao + "%' ";
         }
         
         if (condicoes.compareTo(vazio) != 0){
-            strSql += "WHERE " + condicoes;
+            strSql += " WHERE " + condicoes;
         } 
         
         
@@ -139,7 +139,7 @@ public class ModeloDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE MTE_MODELO_TENIS MTE SET MTE_DESCRICAO = '?', MTE_MARCA = ?, MTE_PRECO = ? WHERE MTE_COD = ?");
+            stmt = con.prepareStatement("UPDATE MTE_MODELO_TENIS MTE SET MTE_DESCRICAO = ?, MTE_MARCA = ?, MTE_PRECO = ? WHERE MTE_COD = ?");
             stmt.setString(1, modelo.getDesc());
             stmt.setString(2, Integer.toString(modelo.getMarca().getCod()));
             stmt.setString(3, Float.toString(modelo.getPreco()));
@@ -148,6 +148,21 @@ public class ModeloDAO {
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
+    }
+    public void excluirModelo(int modelo_cod){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("DELETE FROM mte_modelo_tenis WHERE mte_cod = ?");
+            stmt.setInt(1, modelo_cod);
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{

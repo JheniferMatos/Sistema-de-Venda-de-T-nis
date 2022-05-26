@@ -372,12 +372,12 @@ public class TabelaMarcaView extends javax.swing.JFrame {
     private javax.swing.JPanel titulo;
     // End of variables declaration//GEN-END:variables
     public void preencheTabela(){
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
+        DefaultTableModel modeloTb = (DefaultTableModel) tabela.getModel();
+        modeloTb.setNumRows(0);
         MarcaDAO cdao = new MarcaDAO();
         
         for(Marca marca: cdao.buscarMarca()){
-            modelo.addRow(new Object[]{
+            modeloTb.addRow(new Object[]{
                 marca.getCod(),
                 marca.getNome()
             });
