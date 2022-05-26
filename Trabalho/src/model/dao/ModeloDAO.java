@@ -23,7 +23,7 @@ public class ModeloDAO {
         
         //Montar string SQL
         String strSql, condicoes, vazio;
-        strSql = "SELECT MTE.MTE_COD, MTE. MTE_DESCRICAO, MTE.MTE_PRECO, MAR.MAR_COD, MAR.MAR_NOME ";
+        strSql = "SELECT MTE.MTE_COD, MTE.MTE_DESCRICAO, MTE.MTE_PRECO, MAR.MAR_COD, MAR.MAR_NOME ";
         strSql += "FROM MTE_MODELO_TENIS MTE INNER JOIN MAR_MARCA MAR ON MTE.MTE_MARCA = MAR.MAR_COD ";
         vazio = "";
         condicoes = "";
@@ -34,21 +34,21 @@ public class ModeloDAO {
         pesquisaPorDescricao = descricao.compareTo(vazio) != 0;
         
         if (pesquisaPorCodigo){
-            condicoes += "MTE.MTE_COD = " + Integer.toString(codigoModelo);
+            condicoes += "MTE.MTE_COD = " + Integer.toString(codigoModelo) + " ";
         } 
 
         if (pesquisaPorMarca){
             if (condicoes.compareTo(vazio) != 0){
                 condicoes += "AND ";
             }
-            condicoes += "MAR.MAR_COD = " + Integer.toString(codigoMarca);
+            condicoes += "MAR.MAR_COD = " + Integer.toString(codigoMarca) + " ";
         }
 
         if (pesquisaPorDescricao){
             if (condicoes.compareTo(vazio) != 0){
                 condicoes += "AND ";
             } 
-            condicoes += "MTE.MTE_DESCRICAO LIKE '%" + descricao + "%'";
+            condicoes += "MTE.MTE_DESCRICAO LIKE '%" + descricao + "%' ";
         }
         
         if (condicoes.compareTo(vazio) != 0){

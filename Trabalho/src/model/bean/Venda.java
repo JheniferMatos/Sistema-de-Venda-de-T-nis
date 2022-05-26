@@ -1,18 +1,18 @@
 package model.bean;
 import java.util.Date;
 
-public class Venda {
+public class Venda{
     private int codigo;
     private Cliente cliente;
     private Funcionario funcionario;
     private Date dataHora;
 
-    public Venda(int nCodigo, Cliente nCliente, Funcionario nFuncionario, Date nDataHora){
+    /*public Venda(int nCodigo, Cliente nCliente, Funcionario nFuncionario, Date nDataHora){
         this.codigo = nCodigo;
         this.cliente = nCliente;
         this.funcionario = nFuncionario;
         this.dataHora = nDataHora;     
-    }
+    }*/
     
     public int getCod(){
         return this.codigo;
