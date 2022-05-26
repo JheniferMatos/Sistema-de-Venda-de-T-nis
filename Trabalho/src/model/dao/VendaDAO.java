@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.bean.Venda;
 
 public class VendaDAO {
@@ -84,8 +85,7 @@ public class VendaDAO {
                 v.setCod(rs.getInt("VEN_COD"));
                 v.setCliente(cDAO.buscaClienteCod(rs.getInt("VEN_CLIENTE")));
                 v.setFuncionario(fDAO.buscaFuncionarioCod(rs.getInt("VEN_FUNCIONARIO")));
-                v.setData(nDataHora);
-                v.setModelosVendidos(mDAO.buscarModelosVendidos(rs.getInt("VEN_COD")));                
+                v.setData(nDataHora);               
                 vendas.add(v);
             }
         } catch (SQLException ex) {
@@ -99,15 +99,64 @@ public class VendaDAO {
     
     /*public Venda buscaVendaCod(int Cod){
     
-    }
+    }*/
     
     public void inserirVenda(Venda venda){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("INSERT INTO ven_venda(ven_cliente, ven_funcionario, ven_data_hora) VALUES (?, ?, ?)");
+            stmt.setString(1, Integer.toString(venda.getCliente().getCodigo()));
+            stmt.setString(2, Integer.toString(venda.getFuncionario().getCodigo()));
+            stmt.setString(3, venda.getData().toString());
+            
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
     }
     
     public void alterarVenda(Venda venda){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE VEN_VENDA VEN SET VEN.VEN_CLIENTE = ?, VEN.VEN_FUNCIONARIO = ?, VEN.VEN_DATA_HORA = ? WHERE VEN.VEN_CODIGO = ?");
+            stmt.setString(1, Integer.toString(venda.getCliente().getCodigo()));
+            stmt.setString(2, Integer.toString(venda.getFuncionario().getCodigo()));
+            stmt.setString(3, venda.getData().toString());
+            stmt.setString(4, Integer.toString(venda.getCod()));
+            
+            stmt.executeUpdate();
 
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
     }
     
     public void excluirVenda(int ven_cod){
-    }*/
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("DELETE FROM VEN_VENDA VEN WHERE VEN.VEN_COD = ?");
+            stmt.setString(1, Integer.toString(ven_cod));
+            
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        } 
+    }
 }

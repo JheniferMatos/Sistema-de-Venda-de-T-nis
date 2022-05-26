@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.bean.ModeloVendido;
 import model.bean.Modelo;
 
@@ -41,17 +42,62 @@ public class ModeloVendidoDAO {
         return modelos;
     }
     
-    /*public Modelo buscaTelefoneCod(int Cod){
-        return new Telefone(0, "", "");
-    }
-    
-    public void inserirTelefone(Telefone telefone){
-    }
-    
-    public void alterarTelefone(Telefone telefone){
+    public void inserirModeloVendido(int codigoVenda, int codigoModelo, int quantidade){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("INSERT INTO mve_modelo_vendido (mve_venda, mve_modelo, mve_quantidade) VALUES (?, ?, ?)");
+            stmt.setString(1, Integer.toString(codigoVenda));
+            stmt.setString(2, Integer.toString(codigoModelo));
+            stmt.setString(3, Integer.toString(quantidade));
+            
+            stmt.executeUpdate();
 
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
     }
     
-    public void excluirTelefone(int ven_cod){
-    }*/
+    public void alterarModeloVendido(int codigoVenda, int codigoModelo, int quantidade){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE MVE_MODELO_VENDIDO MVE SET MVE.MVE_QUANTIDADE = ? WHERE MVE.MVE_VENDA = ? AND MVE.MVE_MODELO = ? ");
+            stmt.setString(1, Integer.toString(quantidade));
+            stmt.setString(2, Integer.toString(codigoVenda));
+            stmt.setString(3, Float.toString(codigoModelo));
+            
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
+    }
+    
+    public void excluirModeloVendido(int codigoVenda, int codigoModelo){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("DELETE FROM MVE_MODELO_VENDIDO MVE WHERE MVE.MVE_VENDA = ? AND MVE.MVE_MODELO = ? ");
+            stmt.setString(1, Integer.toString(codigoVenda));
+            stmt.setString(2, Float.toString(codigoModelo));
+            
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }        
+    }
 }

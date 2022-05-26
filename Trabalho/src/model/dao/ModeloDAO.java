@@ -139,10 +139,11 @@ public class ModeloDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE MTE_MODELO_TENIS MTE SET MTE_DESCRICAO = '?', MTE_MARCA = ?, MTE_PRECO = ?");
+            stmt = con.prepareStatement("UPDATE MTE_MODELO_TENIS MTE SET MTE_DESCRICAO = '?', MTE_MARCA = ?, MTE_PRECO = ? WHERE MTE_COD = ?");
             stmt.setString(1, modelo.getDesc());
             stmt.setString(2, Integer.toString(modelo.getMarca().getCod()));
             stmt.setString(3, Float.toString(modelo.getPreco()));
+            stmt.setString(4, Integer.toString(modelo.getCod()));
             
             stmt.executeUpdate();
 
