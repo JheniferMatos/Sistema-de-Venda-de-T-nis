@@ -37,6 +37,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
         titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        voltar = new javax.swing.JLabel();
         corpo = new javax.swing.JPanel();
         elementos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,12 +69,21 @@ public class TabelaModeloView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Modelos de tênis");
 
+        voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/backIcon.png"))); // NOI18N
+        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout tituloLayout = new javax.swing.GroupLayout(titulo);
         titulo.setLayout(tituloLayout);
         tituloLayout.setHorizontalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(voltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -81,7 +91,9 @@ public class TabelaModeloView extends javax.swing.JFrame {
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addGroup(tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                    .addComponent(voltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -150,17 +162,17 @@ public class TabelaModeloView extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(elementosLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(comboMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(elementosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(elementosLayout.createSequentialGroup()
-                                .addComponent(descricao)
+                                .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pesqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(elementosLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel4)))
                     .addGroup(elementosLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -391,9 +403,15 @@ public class TabelaModeloView extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Selecione uma marca!");
+            JOptionPane.showMessageDialog(null, "Selecione um modelo!");
         }
     }//GEN-LAST:event_excluirBtnMouseClicked
+
+    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
+        PrincipalView frame = new PrincipalView();
+        frame.setVisible(true);
+        TabelaModeloView.this.dispose();
+    }//GEN-LAST:event_voltarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -453,6 +471,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
     private javax.swing.JPanel pesqBtn;
     private javax.swing.JTable tabela;
     private javax.swing.JPanel titulo;
+    private javax.swing.JLabel voltar;
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
         MarcaDAO cdao = new MarcaDAO();

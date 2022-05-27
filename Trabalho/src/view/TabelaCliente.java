@@ -32,6 +32,7 @@ public class TabelaCliente extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
         titulo = new javax.swing.JPanel();
         tituloL = new javax.swing.JLabel();
+        voltar = new javax.swing.JLabel();
         corpo = new javax.swing.JPanel();
         elementos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -63,12 +64,21 @@ public class TabelaCliente extends javax.swing.JFrame {
         tituloL.setForeground(new java.awt.Color(255, 255, 255));
         tituloL.setText("Clientes");
 
+        voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/backIcon.png"))); // NOI18N
+        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout tituloLayout = new javax.swing.GroupLayout(titulo);
         titulo.setLayout(tituloLayout);
         tituloLayout.setHorizontalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(voltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tituloL, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -76,7 +86,9 @@ public class TabelaCliente extends javax.swing.JFrame {
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tituloL, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addGroup(tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloL, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                    .addComponent(voltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -306,6 +318,12 @@ public class TabelaCliente extends javax.swing.JFrame {
         pesquisaCliente();
     }//GEN-LAST:event_pesqBtnMouseClicked
 
+    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
+        PrincipalView frame = new PrincipalView();
+        frame.setVisible(true);
+        TabelaCliente.this.dispose();
+    }//GEN-LAST:event_voltarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -354,22 +372,17 @@ public class TabelaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nome;
-    private javax.swing.JPanel novoBtn;
-    private javax.swing.JPanel novoBtn1;
     private javax.swing.JPanel novoBtn2;
-    private javax.swing.JPanel op;
-    private javax.swing.JPanel op1;
     private javax.swing.JPanel opcoes;
     private javax.swing.JPanel pesqBtn;
     private javax.swing.JTable tabela;
     private javax.swing.JPanel titulo;
     private javax.swing.JLabel tituloL;
+    private javax.swing.JLabel voltar;
     // End of variables declaration//GEN-END:variables
     public void pesquisaCliente(){
 

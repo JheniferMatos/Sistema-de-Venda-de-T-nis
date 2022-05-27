@@ -35,6 +35,7 @@ public class TabelaMarcaView extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
         titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        voltar = new javax.swing.JLabel();
         corpo = new javax.swing.JPanel();
         Ptabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -58,20 +59,31 @@ public class TabelaMarcaView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Marcas");
 
+        voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/backIcon.png"))); // NOI18N
+        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout tituloLayout = new javax.swing.GroupLayout(titulo);
         titulo.setLayout(tituloLayout);
         tituloLayout.setHorizontalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addContainerGap()
+                .addComponent(voltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(661, Short.MAX_VALUE))
         );
         tituloLayout.setVerticalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tituloLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .addGroup(tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                    .addComponent(voltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12))
         );
 
@@ -316,6 +328,12 @@ public class TabelaMarcaView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma marca!");
         }
     }//GEN-LAST:event_excluirMouseClicked
+
+    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
+        PrincipalView frame = new PrincipalView();
+        frame.setVisible(true);
+        TabelaMarcaView.this.dispose();
+    }//GEN-LAST:event_voltarMouseClicked
     
     /**
      * @param args the command line arguments
@@ -370,6 +388,7 @@ public class TabelaMarcaView extends javax.swing.JFrame {
     private javax.swing.JPanel op;
     private javax.swing.JTable tabela;
     private javax.swing.JPanel titulo;
+    private javax.swing.JLabel voltar;
     // End of variables declaration//GEN-END:variables
     public void preencheTabela(){
         DefaultTableModel modeloTb = (DefaultTableModel) tabela.getModel();

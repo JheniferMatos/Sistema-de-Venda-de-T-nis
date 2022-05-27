@@ -38,6 +38,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
         titulo = new javax.swing.JPanel();
         tituloL = new javax.swing.JLabel();
+        voltar = new javax.swing.JLabel();
         corpo = new javax.swing.JPanel();
         campos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -76,20 +77,30 @@ public class TabelaVendaView extends javax.swing.JFrame {
         tituloL.setForeground(new java.awt.Color(255, 255, 255));
         tituloL.setText("Vendas");
 
+        voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/backIcon.png"))); // NOI18N
+        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout tituloLayout = new javax.swing.GroupLayout(titulo);
         titulo.setLayout(tituloLayout);
         tituloLayout.setHorizontalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(voltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tituloL, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(715, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tituloLayout.setVerticalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tituloL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tituloL, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addComponent(voltar, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -428,6 +439,12 @@ public class TabelaVendaView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaVendaMouseClicked
 
+    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
+        PrincipalView frame = new PrincipalView();
+        frame.setVisible(true);
+        TabelaVendaView.this.dispose();
+    }//GEN-LAST:event_voltarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -492,6 +509,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
     private javax.swing.JTable tabelaVenda;
     private javax.swing.JPanel titulo;
     private javax.swing.JLabel tituloL;
+    private javax.swing.JLabel voltar;
     // End of variables declaration//GEN-END:variables
     public void preencheTabelaVenda (){
         DefaultTableModel modeloTb = (DefaultTableModel) tabelaVenda.getModel();
