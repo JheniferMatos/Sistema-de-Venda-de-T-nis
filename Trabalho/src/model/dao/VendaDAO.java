@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +14,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.bean.Venda;
+import view.IAVendaView;
 
 public class VendaDAO {
+    
     public List<Venda> buscarVendas(int codigoVenda, String nomeCliente, Date dataInicial, Date dataFinal){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
@@ -95,22 +99,56 @@ public class VendaDAO {
         }
         
         return vendas;
+    }    
+    
+   
+    public List<Venda> buscaVendas(){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<Venda> vendas = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM ven_venda");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                //Funcionario e cliente
+                FuncionarioDAO fDAO = new FuncionarioDAO();
+                ClienteDAO cDAO = new ClienteDAO();
+                
+                Venda v = new Venda();
+                
+                v.setCod(rs.getInt("VEN_COD"));
+                v.setCliente(cDAO.buscaClienteCod(rs.getInt("VEN_CLIENTE")));
+                v.setFuncionario(fDAO.buscaFuncionarioCod(5));
+                v.setData(rs.getDate("ven_data_hora"));
+                v.setTotal(rs.getFloat("VEN_TOTAL"));
+                
+                vendas.add(v);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt, rs);
+        }
+        
+        return vendas;
     }
-    
-    /*public Venda buscaVendaCod(int Cod){
-    
-    }*/
     
     public int inserirVenda(Venda venda){
         Connection con = ConnectionDataBase.getConnection();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         PreparedStatement stmt = null;
         int novoId = 0;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO ven_venda(ven_cliente, ven_funcionario, ven_data_hora) VALUES (?, ?, '2022-05-23 15:30:00')");
+            stmt = con.prepareStatement("INSERT INTO ven_venda(ven_cliente, ven_funcionario, ven_data_hora, ven_total) VALUES (?, ?, ?, ?)");
             stmt.setString(1, Integer.toString(venda.getCliente().getCod()));
             stmt.setString(2, Integer.toString(venda.getFuncionario().getCod()));
-            //stmt.setString(3, venda.getData().toString());
+            stmt.setString(3, df.format(venda.getData()));
+            stmt.setString(4, Float.toString(venda.getTotal()));
             
             stmt.executeUpdate();
             ResultSet resultSet = stmt.executeQuery("SELECT LAST_INSERT_ID()");
@@ -158,7 +196,7 @@ public class VendaDAO {
             
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Venda excluída com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{

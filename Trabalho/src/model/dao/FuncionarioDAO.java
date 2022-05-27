@@ -30,7 +30,7 @@ public class FuncionarioDAO {
         ResultSet rs = null;
         
         String strSql = "select fun.FUN_COD, fun.FUN_USUARIO, fun.FUN_SENHA, fun.FUN_NOME, ";
-        strSql += "fun.FUN_CPF, fun.fun_email, fun.FUN_ADMINISTRADOR, fun.FUN_ATIVO ";   
+        strSql += "fun.FUN_CPF, fun.fun_email, fun.FUN_ADMINISTRADOR ";   
         strSql += "from fun_funcionario fun inner join ven_venda ven on ven.VEN_FUNCIONARIO = fun.fun_cod ";
         strSql += "where ven.VEN_COD = ?;";
         try {
@@ -46,7 +46,6 @@ public class FuncionarioDAO {
                 nCpf = rs.getString("FUN_CPF");
                 nEmail = rs.getString("fun_email");    
                 nAdministrador = rs.getInt("FUN_ADMINISTRADOR") == 1;
-                nAtivo = rs.getInt("FUN_ATIVO") == 1;
                 
                 TelefoneDAO tDAO = new TelefoneDAO();
                 nTelefones = tDAO.buscarTelefonesFuncionarios(nCodigo);
@@ -57,7 +56,7 @@ public class FuncionarioDAO {
             ConnectionDataBase.closeConnection(con, stmt, rs);
         }
         
-        f = new Funcionario(nCodigo, nUsuario, nSenha, nNome, nCpf, nEmail, nAdministrador, nAtivo);
+        f = new Funcionario(nCodigo, nUsuario, nSenha, nNome, nCpf, nEmail, nAdministrador);
         f.setTelefones(nTelefones);
         return f;
     }
@@ -78,10 +77,7 @@ public class FuncionarioDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        String strSql = "select fun.FUN_COD, fun.FUN_USUARIO, fun.FUN_SENHA, fun.FUN_NOME, ";
-        strSql += "fun.FUN_CPF, fun.fun_email, fun.FUN_ADMINISTRADOR, fun.FUN_ATIVO ";   
-        strSql += "from fun_funcionario fun ";
-        strSql += "where fun.FUN_COD = ?;";
+        String strSql = "SELECT * FROM fun_funcionario WHERE fun_cod = ?";
         try {
             stmt = con.prepareStatement(strSql);
             stmt.setString(1, Integer.toString(Cod));
@@ -94,8 +90,6 @@ public class FuncionarioDAO {
                 nNome = rs.getString("FUN_NOME");
                 nCpf = rs.getString("FUN_CPF");
                 nEmail = rs.getString("fun_email");    
-                nAdministrador = rs.getInt("FUN_ADMINISTRADOR") == 1;
-                nAtivo = rs.getInt("FUN_ATIVO") == 1;
                 
                 TelefoneDAO tDAO = new TelefoneDAO();
                 nTelefones = tDAO.buscarTelefonesFuncionarios(nCodigo);
@@ -106,7 +100,7 @@ public class FuncionarioDAO {
             ConnectionDataBase.closeConnection(con, stmt, rs);
         }
         
-        f = new Funcionario(nCodigo, nUsuario, nSenha, nNome, nCpf, nEmail, nAdministrador, nAtivo);
+        f = new Funcionario(nCodigo, nUsuario, nSenha, nNome, nCpf, nEmail, nAdministrador);
         f.setTelefones(nTelefones);
         return f;
     }

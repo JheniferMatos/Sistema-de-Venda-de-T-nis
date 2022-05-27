@@ -22,7 +22,7 @@ public class ModeloVendidoDAO {
         ArrayList<ModeloVendido> modelos = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM MVE_VENDA MVE WHERE MVE.MVE_VENDA = ?");
+            stmt = con.prepareStatement("SELECT * FROM MVE_MODELO_VENDIDO WHERE MVE_VENDA = ?");
             stmt.setString(1, Integer.toString(codigoVenda));
             rs = stmt.executeQuery();
             
@@ -93,6 +93,24 @@ public class ModeloVendidoDAO {
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }        
+    }
+    
+    public void excluirModeloVendido(int codigoVenda){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("DELETE FROM MVE_MODELO_VENDIDO MVE WHERE MVE.MVE_VENDA = ?");
+            stmt.setString(1, Integer.toString(codigoVenda));
+            
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Modelo vendido excluído com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{

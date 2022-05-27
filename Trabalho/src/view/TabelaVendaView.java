@@ -5,6 +5,12 @@
 package view;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.bean.ModeloVendido;
+import model.bean.Venda;
+import model.dao.ModeloVendidoDAO;
+import model.dao.VendaDAO;
 
 /**
  *
@@ -17,6 +23,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
      */
     public TabelaVendaView() {
         initComponents();
+        preencheTabelaVenda();
     }
 
     /**
@@ -34,9 +41,9 @@ public class TabelaVendaView extends javax.swing.JFrame {
         corpo = new javax.swing.JPanel();
         campos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaItens1 = new javax.swing.JTable();
+        tabelaItens = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tabelaVenda = new javax.swing.JTable();
         codigo = new javax.swing.JTextField();
         cliente = new javax.swing.JTextField();
         dataIn = new javax.swing.JFormattedTextField();
@@ -47,6 +54,8 @@ public class TabelaVendaView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         op = new javax.swing.JPanel();
         btnNovo = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -88,25 +97,30 @@ public class TabelaVendaView extends javax.swing.JFrame {
 
         campos.setBackground(new java.awt.Color(255, 255, 255));
 
-        tabelaItens1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaItens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Marca", "Modelo", "Quantidade", "Valor unitário", "Valor total"
+                "Código tênis", "Marca", "Modelo", "Quantidade", "Valor unitário", "Valor total"
             }
         ));
-        jScrollPane2.setViewportView(tabelaItens1);
+        jScrollPane2.setViewportView(tabelaItens);
 
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Cliente", "Descrição", "Preço"
+                "Código", "Cliente", "Data", "Preço"
             }
         ));
-        jScrollPane1.setViewportView(tabela);
+        tabelaVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaVendaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaVenda);
 
         try {
             dataIn.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## / ## / ####")));
@@ -120,7 +134,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jPanel1.setBackground(new java.awt.Color(149, 180, 208));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,6 +158,10 @@ public class TabelaVendaView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Ferramenta de pesquisa");
 
+        jLabel9.setText("Vendas");
+
+        jLabel10.setText("Itens da venda");
+
         javax.swing.GroupLayout camposLayout = new javax.swing.GroupLayout(campos);
         campos.setLayout(camposLayout);
         camposLayout.setHorizontalGroup(
@@ -151,7 +169,6 @@ public class TabelaVendaView extends javax.swing.JFrame {
             .addGroup(camposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, camposLayout.createSequentialGroup()
                         .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,46 +186,51 @@ public class TabelaVendaView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(camposLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(65, 65, 65))
+                            .addGroup(camposLayout.createSequentialGroup()
                                 .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(camposLayout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(camposLayout.createSequentialGroup()
-                    .addContainerGap()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(jScrollPane1)
+                    .addGroup(camposLayout.createSequentialGroup()
+                        .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         camposLayout.setVerticalGroup(
             camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(camposLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dataIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE))
-            .addGroup(camposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, camposLayout.createSequentialGroup()
-                    .addContainerGap(320, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         op.setBackground(new java.awt.Color(127, 77, 76));
@@ -373,7 +395,9 @@ public class TabelaVendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseClicked
-        // TODO add your handling code here:
+        IAVendaView frame = new IAVendaView();
+        frame.setVisible(true);
+        TabelaVendaView.this.dispose();
     }//GEN-LAST:event_btnNovoMouseClicked
 
     private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
@@ -381,8 +405,28 @@ public class TabelaVendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarMouseClicked
 
     private void btnEcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEcluirMouseClicked
-        // TODO add your handling code here:
+        VendaDAO vdao = new VendaDAO();
+        ModeloVendidoDAO vddao = new ModeloVendidoDAO();
+                
+        if(tabelaVenda.getSelectedRow() != -1){
+            Object[] options = {"Sim", "Não"};
+            int op = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if(op == 0){
+                vddao.excluirModeloVendido(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()));
+                vdao.excluirVenda(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()));
+                preencheTabelaVenda();
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Selecione uma marca!");
+        }
     }//GEN-LAST:event_btnEcluirMouseClicked
+
+    private void tabelaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVendaMouseClicked
+        if(tabelaVenda.getSelectedRow() != -1){
+            preencheTabelaItens(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()));
+        }
+    }//GEN-LAST:event_tabelaVendaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -431,6 +475,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField dataFim;
     private javax.swing.JFormattedTextField dataIn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -438,16 +483,44 @@ public class TabelaVendaView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel op;
-    private javax.swing.JTable tabela;
-    private javax.swing.JTable tabelaItens1;
+    private javax.swing.JTable tabelaItens;
+    private javax.swing.JTable tabelaVenda;
     private javax.swing.JPanel titulo;
     private javax.swing.JLabel tituloL;
     // End of variables declaration//GEN-END:variables
-    public void teste (){
+    public void preencheTabelaVenda (){
+        DefaultTableModel modeloTb = (DefaultTableModel) tabelaVenda.getModel();
+        modeloTb.setNumRows(0);
+        VendaDAO vdao = new VendaDAO();
         
+        for(Venda venda: vdao.buscaVendas()){
+            modeloTb.addRow(new Object[]{
+                venda.getCod(),
+                venda.getCliente().getNome(),
+                venda.getData(),
+                venda.getTotal()
+            });
+        }
+    }
+    public void preencheTabelaItens(int codVenda){
+        DefaultTableModel modeloTb = (DefaultTableModel) tabelaItens.getModel();
+        modeloTb.setNumRows(0);
+        ModeloVendidoDAO mvdao = new ModeloVendidoDAO();
+        
+        for(ModeloVendido modeloV: mvdao.buscarModelosVendidos(codVenda)){
+            modeloTb.addRow(new Object[]{
+                modeloV.getModelo().getCod(),
+                modeloV.getModelo().getMarca().getNome(),
+                modeloV.getModelo().getDesc(),
+                modeloV.getQuantidade(),
+                modeloV.getModelo().getPreco(),
+                modeloV.getQuantidade() * modeloV.getModelo().getPreco()
+            });
+        }
     }
 }

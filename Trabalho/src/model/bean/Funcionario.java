@@ -10,10 +10,9 @@ public class Funcionario {
     private String email;
     private ArrayList<Telefone> telefones;
     private boolean administrador;
-    private boolean ativo;
     
     
-    public Funcionario(int nCodigo, String nUsuario, String nSenha, String nNome, String nCpf, String nEmail, boolean nAdministrador, boolean nAtivo){
+    public Funcionario(int nCodigo, String nUsuario, String nSenha, String nNome, String nCpf, String nEmail, boolean nAdministrador){
         this.codigo = nCodigo;
         this.usuario = nUsuario;
         this.senha = nSenha;
@@ -21,7 +20,6 @@ public class Funcionario {
         this.cpf = nCpf;
         this.email = nEmail;
         this.administrador = nAdministrador;
-        this.ativo = nAtivo;
     }
 
     public Funcionario() {}
@@ -90,13 +88,6 @@ public class Funcionario {
         this.administrador = nAdministrador;
     }
     
-    public boolean getAtivo(){
-        return this.ativo ;
-    }
-    
-    public void setAtivo(boolean nAtivo){
-        this.ativo = nAtivo;
-    }
     @Override
     public String toString(){
         return getNome();

@@ -4,10 +4,15 @@
  */
 package view;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Cliente;
@@ -78,7 +83,7 @@ public class IAVendaView extends javax.swing.JFrame {
         opcoes = new javax.swing.JPanel();
         btnConfirmar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        btnAlterar = new javax.swing.JPanel();
+        btnCancelar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -340,10 +345,10 @@ public class IAVendaView extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        btnAlterar.setBackground(new java.awt.Color(101, 61, 60));
-        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCancelar.setBackground(new java.awt.Color(101, 61, 60));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAlterarMouseClicked(evt);
+                btnCancelarMouseClicked(evt);
             }
         });
 
@@ -352,21 +357,21 @@ public class IAVendaView extends javax.swing.JFrame {
         jLabel7.setText("Cancelar");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7btnAlterarMouseClicked(evt);
+                btnCancelarMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout btnAlterarLayout = new javax.swing.GroupLayout(btnAlterar);
-        btnAlterar.setLayout(btnAlterarLayout);
-        btnAlterarLayout.setHorizontalGroup(
-            btnAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAlterarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnCancelarLayout = new javax.swing.GroupLayout(btnCancelar);
+        btnCancelar.setLayout(btnCancelarLayout);
+        btnCancelarLayout.setHorizontalGroup(
+            btnCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCancelarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(25, 25, 25))
         );
-        btnAlterarLayout.setVerticalGroup(
-            btnAlterarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnCancelarLayout.setVerticalGroup(
+            btnCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
@@ -378,7 +383,7 @@ public class IAVendaView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(opcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         opcoesLayout.setVerticalGroup(
@@ -387,7 +392,7 @@ public class IAVendaView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -436,23 +441,20 @@ public class IAVendaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel7btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7btnAlterarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel7btnAlterarMouseClicked
-
-    private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAlterarMouseClicked
-
     private void btnPesquisaModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaModeloActionPerformed
-        preencheComboModelos();
-        if(comboModelo.getItemCount() != 0){
-            comboModelo.enable(true);
+        if(comboMarca.getSelectedIndex() < 0){
+            JOptionPane.showMessageDialog(null, "Informe uma marca!");
         }
         else{
-            comboModelo.enable(false);
-            JOptionPane.showMessageDialog(null, "Essa marca não possui modelos cadastrados!");
-        }
+            preencheComboModelos();
+            if(comboModelo.getItemCount() != 0){
+                comboModelo.enable(true);
+            }
+            else{
+                comboModelo.enable(false);
+                JOptionPane.showMessageDialog(null, "Essa marca não possui modelos cadastrados!");
+            }
+        }  
     }//GEN-LAST:event_btnPesquisaModeloActionPerformed
 
     private void btnIncluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIncluirMouseClicked
@@ -496,21 +498,45 @@ public class IAVendaView extends javax.swing.JFrame {
         }
         else{
             //Cadastrando venda
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
             VendaDAO vdao = new VendaDAO();
             Venda venda = new Venda();
             int idVenda;
+                                  
             venda.setCliente((Cliente) comboCliente.getSelectedItem());
             venda.setFuncionario((Funcionario) comboFuncionario.getSelectedItem());
+            
+            //Formatando data
+            String dataS = dataIn.getText();
+            String hora = horaIn.getText();
+            String dataHora = dataS.substring(6, 10) + dataS.substring(2, 6) + dataS.substring(0, 2) +" "+ hora;
+            
+            try {
+                venda.setData(df.parse(dataHora.replace("/", "-")));
+            } catch (ParseException ex) {
+                Logger.getLogger(IAVendaView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            venda.setTotal(vTotal);
             venda.setModelosVendidos((ArrayList<ModeloVendido>) modelosVendidos);
             idVenda = vdao.inserirVenda(venda);
-
+            
             //Cadastrando modelos vendidos
             ModeloVendidoDAO mdao = new ModeloVendidoDAO();
             for(int i = 0; i < modelosVendidos.size(); i++){
                 mdao.inserirModeloVendido(idVenda, modelosVendidos.get(i).getModelo().getCod(), modelosVendidos.get(i).getQuantidade());
             }
+            TabelaVendaView frame = new TabelaVendaView();
+            frame.setVisible(true);
+            IAVendaView.this.dispose();
         }
     }//GEN-LAST:event_btnConfirmarMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        TabelaVendaView frame = new TabelaVendaView();
+        frame.setVisible(true);
+        IAVendaView.this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -548,7 +574,7 @@ public class IAVendaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnAlterar;
+    private javax.swing.JPanel btnCancelar;
     private javax.swing.JPanel btnConfirmar;
     private javax.swing.JPanel btnIncluir;
     private javax.swing.JButton btnPesquisaModelo;
