@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class ConnectionDataBase {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/LOJA_TENIS";
+    private static final String URL = "jdbc:mysql://localhost:3306/loja_tenis";
     private static final String USER = "root";
     private static final String PASS = "";
     
