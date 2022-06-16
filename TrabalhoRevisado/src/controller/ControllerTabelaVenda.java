@@ -9,23 +9,7 @@ import model.dao.VendaDAO;
 import view.TabelaVendaView;
 
 public class ControllerTabelaVenda {
-    public void preencheTabelaVenda(Object view){
-        TabelaVendaView frame = (TabelaVendaView) view;
-        
-        DefaultTableModel modeloTb = (DefaultTableModel) frame.getTabelaVenda().getModel();
-        modeloTb.setNumRows(0);
-        VendaDAO vdao = new VendaDAO();
-        
-        for(Venda venda: controller.getModelosVendidos()){
-            modeloTb.addRow(new Object[]{
-                venda.getCod(),
-                venda.getCliente().getNome(),
-                venda.getData(),
-                venda.getTotal()
-            });
-        }
-    }
-    
+    /*
     public void preencheTabelaItens(Object view){
         TabelaVendaView frame = (TabelaVendaView) view;
         DevolucaoDAO devDAO = new DevolucaoDAO();        
@@ -44,6 +28,6 @@ public class ControllerTabelaVenda {
             modeloTb.addRow(row);
         }
     }
-    
+    */
     
 }

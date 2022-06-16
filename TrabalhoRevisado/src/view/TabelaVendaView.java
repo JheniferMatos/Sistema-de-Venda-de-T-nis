@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.bean.ModeloVendido;
 import model.bean.Venda;
 
 /*
@@ -24,11 +25,14 @@ public class TabelaVendaView extends javax.swing.JFrame {
     
     Controller controller;
     
+    public TabelaVendaView(){}
+    
     public TabelaVendaView(Controller controller) {
         initComponents();
-        acessaController.preencheTabelaVenda(this);
+        this.controller = controller;
+        preencheTabelaVenda();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -309,9 +313,9 @@ public class TabelaVendaView extends javax.swing.JFrame {
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
         if(tabelaVenda.getSelectedRow() != -1){           
-            DevVendaView frame = new DevVendaView(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString(), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString());
-            frame.setVisible(true);
-            TabelaVendaView.this.dispose();
+            //DevVendaView frame = new DevVendaView(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString(), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString());
+            //frame.setVisible(true);
+            //TabelaVendaView.this.dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Selecione a venda corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -320,7 +324,14 @@ public class TabelaVendaView extends javax.swing.JFrame {
 
     private void tabelaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVendaMouseClicked
         if(tabelaVenda.getSelectedRow() != -1){
-            acessaController.preencheTabelaItens(this);
+            DefaultTableModel modeloTb = (DefaultTableModel) tabelaItens.getModel();
+            modeloTb.setNumRows(0);
+            
+            for(ModeloVendido modeloVendido: controller.getModelosVendidos(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()))){
+                Object row[] = new Object[]{modeloVendido.getCod(), modeloVendido.getModelo().getMarca().getNome(), modeloVendido.getModelo().getDesc(), modeloVendido.getModelo().getPreco()};
+                
+                modeloTb.addRow(row);
+            }
         }
     }//GEN-LAST:event_tabelaVendaMouseClicked
 
@@ -387,10 +398,9 @@ public class TabelaVendaView extends javax.swing.JFrame {
     private javax.swing.JPanel tituloF;
     private javax.swing.JLabel tituloL;
     // End of variables declaration//GEN-END:variables
-        public void preencheTabelaVenda(Object view){
-        TabelaVendaView frame = (TabelaVendaView) view;
+    public void preencheTabelaVenda(){
         
-        DefaultTableModel modeloTb = (DefaultTableModel) tabelaItens.getModel();
+        DefaultTableModel modeloTb = (DefaultTableModel) tabelaVenda.getModel();
         modeloTb.setNumRows(0);
         
         for(Venda venda: controller.getVendas()){

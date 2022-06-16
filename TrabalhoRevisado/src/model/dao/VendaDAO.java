@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 import model.bean.Venda;
 
 public class VendaDAO {
-    public List<Venda> buscaVendas(){
+    public ArrayList<Venda> buscaVendas(){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        List<Venda> vendas = new ArrayList<>();
+        ArrayList<Venda> vendas = new ArrayList<>();
         
         try {
             stmt = con.prepareStatement("SELECT * FROM ven_venda");

@@ -17,6 +17,8 @@ public class DevVendaView extends javax.swing.JFrame {
     private String cliente;
     private String data;
     
+    public DevVendaView(){}
+    
     public DevVendaView(Controller controladora) {
         initComponents();
         this.controller = controladora;
@@ -261,7 +263,7 @@ public class DevVendaView extends javax.swing.JFrame {
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Solicitar devolução?", "Devolução", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if(op == 0){
-                acessaController.realizarDevolucao(this);
+                //acessaController.realizarDevolucao(this);
             }
         }
         else{
