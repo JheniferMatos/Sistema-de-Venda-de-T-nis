@@ -7,7 +7,7 @@ import model.dao.DevolucaoDAO;
 import model.dao.ModeloVendidoDAO;
 import view.DevVendaView;
 
-public class ControllerDevVenda {
+public class ControllerDevVenda {/*
     public void preencheInfoVenda(Object view){
         DevVendaView frame = (DevVendaView) view;
         DevolucaoDAO devDAO = new DevolucaoDAO();
@@ -62,5 +62,5 @@ public class ControllerDevVenda {
         devolucao.setModeloVendido(mvDAO.buscaModeloVendido(Integer.parseInt(frame.getTabelaItens().getValueAt(frame.getTabelaItens().getSelectedRow(), 0).toString())));
         devolucao.setMotivo(motivo);
         devDAO.inserirDevolucao(devolucao);
-    }
+    }*/
 }
