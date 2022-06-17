@@ -67,6 +67,7 @@ public class Controller {
         return marcaDAO.ExcluirMarca(marca);
     }
     
+
     public void realizarDevolucao(int codModeloVendido, String motivo){
         //Declarando objetos necessários
         Devolucao devolucao = new Devolucao();
