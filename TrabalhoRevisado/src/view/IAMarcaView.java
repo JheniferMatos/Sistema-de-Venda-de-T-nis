@@ -248,11 +248,15 @@ public class IAMarcaView extends javax.swing.JFrame {
             else{
                 marca = new Marca();
                 marca.setNome(nome.getText());
-                controller.InserirMarca(marca);
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                TabelaMarcaView frame = new TabelaMarcaView(controller);
-                frame.setVisible(true);
-                IAMarcaView.this.dispose();
+                if (controller.InserirMarca(marca)){
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    TabelaMarcaView frame = new TabelaMarcaView(controller);
+                    frame.setVisible(true);
+                    IAMarcaView.this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível realizar o cadastro.");
+                }
+                
             }
         }
         else{
@@ -260,11 +264,14 @@ public class IAMarcaView extends javax.swing.JFrame {
             
             if(JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == 0){
                 marca.setNome(nome.getText());
-                controller.AlteraMarca(marca);
-                JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
-                TabelaMarcaView frame = new TabelaMarcaView(controller);
-                frame.setVisible(true);
-                IAMarcaView.this.dispose();
+                if (controller.AlteraMarca(marca)) {
+                    JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+                    TabelaMarcaView frame = new TabelaMarcaView(controller);
+                    frame.setVisible(true);
+                    IAMarcaView.this.dispose();                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração");
+                }
             }
         }
     }//GEN-LAST:event_confirmarMouseClicked

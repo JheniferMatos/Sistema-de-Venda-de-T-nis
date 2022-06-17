@@ -55,12 +55,16 @@ public class Controller {
         return marcaDAO.buscaMarcaCod(codigo);
     }
     
-    public void InserirMarca(Marca marca){
-        marcaDAO.InserirMarca(marca);
+    public boolean InserirMarca(Marca marca){
+        return marcaDAO.InserirMarca(marca);
     }
     
-    public void AlteraMarca(Marca marca){
-        marcaDAO.AlterarMarca(marca);
+    public boolean AlteraMarca(Marca marca){
+        return marcaDAO.AlterarMarca(marca);
+    }
+    
+    public boolean ExcluirMarca(Marca marca){
+        return marcaDAO.ExcluirMarca(marca);
     }
     
     public void realizarDevolucao(int codModeloVendido, String motivo){

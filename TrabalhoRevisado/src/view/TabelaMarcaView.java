@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import controller.Controller;
 import model.bean.Marca;
-import model.dao.MarcaDAO;
 
 /**
  *
@@ -321,14 +320,19 @@ public class TabelaMarcaView extends javax.swing.JFrame {
     }//GEN-LAST:event_alterarMouseClicked
 
     private void excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirMouseClicked
-        MarcaDAO mDao = new MarcaDAO();
                 
         if(tabela.getSelectedRow() != -1){
+            Marca marca = controller.getMarca(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if(op == 0){
-                mDao.excluirMarca(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-                preencheTabela();
+                if (controller.ExcluirMarca(marca)) {
+                    JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+                    preencheTabelaMarca();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione Não foi possível realizar a exclusão. A marca selecionada é referenciada por modelos existentes no sistema.");
+                }
+                
             }
         }
         else{

@@ -64,26 +64,31 @@ public class MarcaDAO {
         return marcas;
     }
     
-    public void InserirMarca(Marca marca){
+    public boolean InserirMarca(Marca marca){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
+        boolean result;
         
         try {
             stmt = con.prepareStatement("INSERT INTO mar_marca (mar_nome) VALUES (?)");
             stmt.setString(1, marca.getNome());
             
             stmt.executeUpdate();
+            result = true;
         } catch (SQLException ex) {
             Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
         }finally{
             ConnectionDataBase.closeConnection(con, stmt);
             
         }
+        return result;
     }
     
-    public void AlterarMarca(Marca marca){
+    public boolean AlterarMarca(Marca marca){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
+        boolean result;
         
         try {
             stmt = con.prepareStatement("UPDATE loja_tenis.mar_marca SET mar_nome = ? WHERE (mar_cod = ?);");
@@ -91,11 +96,35 @@ public class MarcaDAO {
             stmt.setString(2, Integer.toString(marca.getCod()));
             
             stmt.executeUpdate();
+            result = true;
         } catch (SQLException ex) {
             Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
         }finally{
             ConnectionDataBase.closeConnection(con, stmt);
             
         }
+        return result;
+    }
+    
+    public boolean ExcluirMarca(Marca marca){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        boolean result;
+        try {
+            stmt = con.prepareStatement("DELETE FROM mar_marca WHERE mar_cod = ?");
+            stmt.setInt(1, marca.getCod());
+            
+            stmt.executeUpdate();
+            
+            result = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
+        
+        return result;
     }
 }
