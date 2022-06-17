@@ -6,7 +6,6 @@ package view;
 
 import javax.swing.JOptionPane;
 import model.bean.Marca;
-import model.dao.MarcaDAO;
 import controller.Controller;
 
 /**
@@ -261,7 +260,7 @@ public class IAMarcaView extends javax.swing.JFrame {
             
             if(JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == 0){
                 marca.setNome(nome.getText());
-                controller.AlterarMarca(marca);
+                controller.AlteraMarca(marca);
                 JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
                 TabelaMarcaView frame = new TabelaMarcaView(controller);
                 frame.setVisible(true);

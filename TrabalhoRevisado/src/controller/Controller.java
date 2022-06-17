@@ -51,12 +51,16 @@ public class Controller {
         return marcas;
     }
     
+    public Marca getMarca(int codigo){
+        return marcaDAO.buscaMarcaCod(codigo);
+    }
+    
     public void InserirMarca(Marca marca){
         marcaDAO.InserirMarca(marca);
     }
     
     public void AlteraMarca(Marca marca){
-        MarcaDAO.AlterarMarca(marca);
+        marcaDAO.AlterarMarca(marca);
     }
     
     public void realizarDevolucao(int codModeloVendido, String motivo){

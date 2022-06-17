@@ -309,7 +309,9 @@ public class TabelaMarcaView extends javax.swing.JFrame {
 
     private void alterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarMouseClicked
         if(tabela.getSelectedRow() != -1){
-            IAMarcaView frame = new IAMarcaView(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            Marca marca = controller.getMarca(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            IAMarcaView frame = new IAMarcaView(controller);
+            frame.SetMarca(marca);
             frame.setVisible(true);
             TabelaMarcaView.this.dispose();
         }
