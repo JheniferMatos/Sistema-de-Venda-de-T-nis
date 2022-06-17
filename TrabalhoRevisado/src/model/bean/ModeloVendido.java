@@ -4,6 +4,7 @@ public class ModeloVendido {
     private int codigo;
     private Venda venda;
     private Modelo modelo;
+    private boolean devolvido;
     
     public int getCod(){
         return codigo;
@@ -17,6 +18,10 @@ public class ModeloVendido {
         return modelo;
     }
     
+    public boolean getDevolvido(){
+        return devolvido;
+    }
+    
     public void setCod(int codModeloVendido){
         this.codigo = codModeloVendido;
     }
@@ -27,6 +32,10 @@ public class ModeloVendido {
     
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
+    }
+    
+    public void setDevolvido(boolean estado){
+        this.devolvido = estado;
     }
 }
 

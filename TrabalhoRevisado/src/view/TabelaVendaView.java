@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.bean.Cliente;
 import model.bean.ModeloVendido;
 import model.bean.Venda;
 
@@ -29,6 +28,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
     public TabelaVendaView(){
         initComponents();
     }
+    
     
     public TabelaVendaView(Controller controller) {
         initComponents();
@@ -315,16 +315,10 @@ public class TabelaVendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_codigoVendaActionPerformed
     
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
-        if(tabelaVenda.getSelectedRow() != -1){
-            Venda venda = null;
-            Cliente cliente = null;
-            cliente.setNome(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString());
-            venda.setCod(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()));
-            //venda.setData(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString()); Converter para date
-            
-            //DevVendaView frame = new DevVendaView(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString(), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString());
-            //frame.setVisible(true);
-            //TabelaVendaView.this.dispose();
+        if(tabelaVenda.getSelectedRow() != -1){      
+            DevVendaView frame = new DevVendaView(this.controller, tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString(), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString(), tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString());
+            frame.setVisible(true);
+            TabelaVendaView.this.dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Selecione a venda corretamente!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -413,12 +407,8 @@ public class TabelaVendaView extends javax.swing.JFrame {
         modeloTb.setNumRows(0);
         
         for(Venda venda: controller.getVendas()){
-            modeloTb.addRow(new Object[]{
-                venda.getCod(),
-                venda.getCliente().getNome(),
-                venda.getData(),
-                venda.getTotal()
-            });
+            Object row[] = new Object[]{venda.getCod(), venda.getCliente().getNome(), venda.getData(), venda.getTotal()};
+            modeloTb.addRow(row);
         }
     }
 }

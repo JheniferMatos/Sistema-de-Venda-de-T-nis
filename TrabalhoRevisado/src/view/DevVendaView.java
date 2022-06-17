@@ -6,6 +6,9 @@ package view;
 
 import controller.Controller;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.bean.ModeloVendido;
+import model.dao.ModeloVendidoDAO;
 
 /**
  *
@@ -13,25 +16,31 @@ import javax.swing.JOptionPane;
  */
 public class DevVendaView extends javax.swing.JFrame {
     Controller controller;
-    private int codVenda;
+    //Dados para o front-end
+    private String codVenda;
     private String cliente;
     private String data;
     
-    public DevVendaView(){}
+    public DevVendaView(){
+        initComponents();
+    }
     
+    /*
     public DevVendaView(Controller controladora) {
         initComponents();
         this.controller = controladora;
     }
+    */
     
-    /*
-    public DevVendaView(int codV, String nomeCliente, String dataVenda) {
+    public DevVendaView(Controller controladora, String codV, String nomeCliente, String dataVenda) {
         initComponents();
         this.codVenda = codV;
         this.cliente = nomeCliente;
         this.data = dataVenda;
-        controladora.preencheInfoVenda(this);
-    }*/
+        this.controller = controladora;
+        preencheTabelaModelosVendidos();
+        setDados();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -259,11 +268,27 @@ public class DevVendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
-        if(tabelaItens.getSelectedRow() != -1 && (cbMotivo1.isSelected() || cbMotivo2.isSelected() || cbMotivo3.isSelected() || cbMotivo4.isSelected())){
+        String motivo = "";
+        if(cbMotivo1.isSelected()){
+            motivo+= "Motivo1";
+        }
+        if(cbMotivo2.isSelected()){
+            motivo+= " ";
+            motivo+= "Motivo2";
+        }
+        if(cbMotivo3.isSelected()){
+            motivo+= " ";
+            motivo+= "Motivo3";
+        }
+        if(cbMotivo4.isSelected()){
+            motivo+= " ";
+            motivo+= "Motivo4";
+        }
+        if(tabelaItens.getSelectedRow() != -1 && (motivo!="")){
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Solicitar devolução?", "Devolução", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if(op == 0){
-                //acessaController.realizarDevolucao(this);
+                controller.realizarDevolucao(Integer.parseInt(tabelaItens.getValueAt(tabelaItens.getSelectedRow(), 0).toString()), motivo);
             }
         }
         else{
@@ -272,7 +297,7 @@ public class DevVendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDevolverActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        TabelaVendaView frame = new TabelaVendaView();
+        TabelaVendaView frame = new TabelaVendaView(this.controller);
         frame.setVisible(true);
         DevVendaView.this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -332,47 +357,27 @@ public class DevVendaView extends javax.swing.JFrame {
     private javax.swing.JPanel tituloF;
     private javax.swing.JLabel tituloL;
     // End of variables declaration//GEN-END:variables
-    public int getCodVenda(){
-        return this.codVenda;
+    
+    //Customização do front-end
+    public void setDados(){
+        lbCod.setText("Cod.0000000"+codVenda);
+        lbCliente.setText(cliente);
+        lbData.setText(data);
     }
     
-    public String getCliente(){
-        return this.cliente;
-    }
-    
-    public String getData(){
-        return this.data;
-    }
-    
-    public javax.swing.JTable getTabelaItens(){
-        return this.tabelaItens;
-    }
-    
-    public javax.swing.JLabel getLbCod(){
-        return this.lbCod;
-    }
-    
-    public javax.swing.JLabel getLbCliente(){
-        return this.lbCliente;
-    }
-    
-    public javax.swing.JLabel getLbData(){
-        return this.lbData;
-    }
-    
-    public javax.swing.JCheckBox getCbMotivo1(){
-        return this.cbMotivo1;
-    }
-    
-    public javax.swing.JCheckBox getCbMotivo2(){
-        return this.cbMotivo2;
-    }
-    
-    public javax.swing.JCheckBox getCbMotivo3(){
-        return this.cbMotivo3;
-    }
-    
-    public javax.swing.JCheckBox getCbMotivo4(){
-        return this.cbMotivo4;
+    public void preencheTabelaModelosVendidos(){
+        DefaultTableModel modeloTb = (DefaultTableModel) tabelaItens.getModel();
+        modeloTb.setNumRows(0);
+        ModeloVendidoDAO mvdao = new ModeloVendidoDAO();
+        
+        for(ModeloVendido modeloV: controller.getModelosVendidos(Integer.parseInt(codVenda))){
+            Object row[] = new Object[]{modeloV.getCod(), modeloV.getModelo().getMarca().getNome(), modeloV.getModelo().getDesc(), modeloV.getModelo().getPreco()};
+            modeloTb.addRow(row);
+            /*
+            if(devDAO.verificaModeloVendido(modeloV)){
+                row[0] = "(DEVOLVIDO)";
+            }
+            */
+        }  
     }
 }

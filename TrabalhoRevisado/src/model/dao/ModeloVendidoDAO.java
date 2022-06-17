@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.bean.Modelo;
 import model.bean.ModeloVendido;
 
@@ -69,5 +70,24 @@ public class ModeloVendidoDAO {
         }
         
         return modelo;
+    }
+    public void alteraEstadoDevolvido(ModeloVendido mVendido){
+        Connection con = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = null;
+        
+        
+        try {
+            stmt = con.prepareStatement("UPDATE loja_tenis.mve_modelo_vendido SET mve_devolvido = ? WHERE (mve_cod = ?)");
+            if(mVendido.getDevolvido()) stmt.setString(1, "1");
+            else stmt.setString(1, "0");
+            
+            stmt.setString(2, Integer.toString(mVendido.getCod()));
+            
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloVendido.class.getName()).log(null, "Erro na alteracao", ex);
+        }finally{
+            ConnectionDataBase.closeConnection(con, stmt);
+        }
     }
 }
