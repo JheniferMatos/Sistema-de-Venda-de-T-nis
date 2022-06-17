@@ -50,8 +50,16 @@ public class Controller {
         
         return marcas;
     }
-	
-	    public void realizarDevolucao(int codModeloVendido, String motivo){
+    
+    public void InserirMarca(Marca marca){
+        marcaDAO.InserirMarca(marca);
+    }
+    
+    public void AlteraMarca(Marca marca){
+        MarcaDAO.AlterarMarca(marca);
+    }
+    
+    public void realizarDevolucao(int codModeloVendido, String motivo){
         //Declarando objetos necessários
         Devolucao devolucao = new Devolucao();
         ModeloVendido mVendido = new ModeloVendido();

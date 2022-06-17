@@ -18,7 +18,11 @@ public class TabelaMarcaView extends javax.swing.JFrame {
 
     Controller controller;
     
-   public TabelaMarcaView(Controller controller) {
+    public TabelaMarcaView(){
+        initComponents();
+    }
+   
+    public TabelaMarcaView(Controller controller) {
         initComponents();
         this.controller = controller;
         preencheTabelaMarca();
@@ -298,7 +302,7 @@ public class TabelaMarcaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoMouseClicked
-        IAMarcaView frame = new IAMarcaView(0);
+        IAMarcaView frame = new IAMarcaView(controller);
         frame.setVisible(true);
         TabelaMarcaView.this.dispose();
     }//GEN-LAST:event_novoMouseClicked
