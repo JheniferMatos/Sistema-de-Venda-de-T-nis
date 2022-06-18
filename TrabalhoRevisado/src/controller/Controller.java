@@ -65,8 +65,24 @@ public class Controller {
         return marcaDAO.ExcluirMarca(marca);
     }
     
-    public List<Modelo> getModelos(int codModelo, Marca marca, String desc){
+    public List<Modelo> GetModelos(int codModelo, Marca marca, String desc){
         return modeloDAO.buscaModelos(codModelo, marca, desc);
+    }
+    
+    public Modelo GetModelo(int codigo){
+        return modeloDAO.buscaModeloCod(codigo);
+    }
+    
+    public boolean InserirModelo(Modelo modelo){
+        return modeloDAO.InserirModelo(modelo);
+    }
+    
+    public boolean AlterarModelo(Modelo modelo){
+       return modeloDAO.AlterarModelo(modelo);
+   }
+    
+    public boolean ExcluirModelo(Modelo modelo){
+        return modeloDAO.ExcluirModelo(modelo);
     }
     
 

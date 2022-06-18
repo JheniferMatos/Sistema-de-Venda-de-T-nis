@@ -504,7 +504,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
         DefaultTableModel modeloTb = (DefaultTableModel) tabela.getModel();
         modeloTb.setNumRows(0);
         
-        for(Modelo modelo: controller.getModelos(codModelo, marca, desc)){
+        for(Modelo modelo: controller.GetModelos(codModelo, marca, desc)){
             modeloTb.addRow(new Object[]{
                 modelo.getCod(),
                 modelo.getMarca(),

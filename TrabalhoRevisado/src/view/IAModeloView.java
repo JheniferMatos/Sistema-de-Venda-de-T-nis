@@ -293,7 +293,7 @@ public class IAModeloView extends javax.swing.JFrame {
                 modelo.setDesc(descricao.getText());
                 modelo.setPreco(Float.parseFloat(preco.getText()));
                 
-                if (controller.alterarModelo(modelo)){
+                if (controller.AlterarModelo(modelo)){
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
                     TabelaModeloView frame = new TabelaModeloView();
                     frame.setVisible(true);
