@@ -288,7 +288,9 @@ public class DevVendaView extends javax.swing.JFrame {
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Solicitar devolução?", "Devolução", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if(op == 0){
-                controller.realizarDevolucao(Integer.parseInt(tabelaItens.getValueAt(tabelaItens.getSelectedRow(), 0).toString()), motivo);
+                if(controller.realizarDevolucao(Integer.parseInt(tabelaItens.getValueAt(tabelaItens.getSelectedRow(), 0).toString()), motivo)){
+                    JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+                }
             }
         }
         else{

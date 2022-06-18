@@ -12,9 +12,10 @@ import model.bean.Devolucao;
 import model.bean.ModeloVendido;
 
 public class DevolucaoDAO {
-    public void inserirDevolucao(Devolucao devolucao){
+    public boolean inserirDevolucao(Devolucao devolucao){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
+        boolean result;
         
         try {
             stmt = con.prepareStatement("INSERT INTO dev_devolucao (dev_motivo, dev_modelo_vendido) VALUES (?, ?)");
@@ -22,13 +23,14 @@ public class DevolucaoDAO {
             stmt.setString(2, Integer.toString(devolucao.getModeloVendido().getCod()));
             
             stmt.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Devolução realizada!");
+            result = true;
         } catch (SQLException ex) {
             Logger.getLogger(DevolucaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
         }finally{
             ConnectionDataBase.closeConnection(con, stmt);
         }
+        return result;
     }
     public boolean verificaModeloVendido(ModeloVendido modeloVen){
         Connection con = ConnectionDataBase.getConnection();

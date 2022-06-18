@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import model.bean.Modelo;
 
 public class ModeloDAO {
-        public Modelo buscaModeloCod(int Cod){
+    public Modelo buscaModeloCod(int Cod){
         Connection con = ConnectionDataBase.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;

@@ -127,7 +127,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        btnBuscar.setText("Buscar");
+        btnBuscar.setText("🔍");
 
         tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -156,6 +156,11 @@ public class TabelaVendaView extends javax.swing.JFrame {
 
         btnAdicionar.setBackground(java.awt.SystemColor.controlHighlight);
         btnAdicionar.setText("Nova venda ➕");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setBackground(java.awt.SystemColor.controlHighlight);
         btnAlterar.setText("Alterar 📝");
@@ -235,11 +240,11 @@ public class TabelaVendaView extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(corpoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addGroup(corpoLayout.createSequentialGroup()
                                 .addComponent(fimData, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar))
-                            .addComponent(jLabel3)))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                     .addGroup(corpoLayout.createSequentialGroup()
                         .addGroup(corpoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,6 +342,10 @@ public class TabelaVendaView extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tabelaVendaMouseClicked
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments

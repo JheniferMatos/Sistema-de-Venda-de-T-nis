@@ -32,11 +32,11 @@ import model.dao.VendaDAO;
  *
  * @author fonte
  */
-public class IAVendaView extends javax.swing.JFrame {
+public class NovaVendaView extends javax.swing.JFrame {
     List<ModeloVendido> modelosVendidos = new ArrayList<>();
     float vTotal = 0;
     
-    public IAVendaView() {
+    public NovaVendaView() {
         initComponents();
         preencheComboMarca();
         preencheComboFuncionarios();
@@ -514,7 +514,7 @@ public class IAVendaView extends javax.swing.JFrame {
             try {
                 venda.setData(df.parse(dataHora.replace("/", "-")));
             } catch (ParseException ex) {
-                Logger.getLogger(IAVendaView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NovaVendaView.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             venda.setTotal(vTotal);
@@ -528,14 +528,14 @@ public class IAVendaView extends javax.swing.JFrame {
             }
             TabelaVendaView frame = new TabelaVendaView();
             frame.setVisible(true);
-            IAVendaView.this.dispose();
+            NovaVendaView.this.dispose();
         }
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         TabelaVendaView frame = new TabelaVendaView();
         frame.setVisible(true);
-        IAVendaView.this.dispose();
+        NovaVendaView.this.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     /**
@@ -555,20 +555,21 @@ public class IAVendaView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IAVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IAVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IAVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IAVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaVendaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IAVendaView().setVisible(true);
+                new NovaVendaView().setVisible(true);
             }
         });
     }

@@ -341,8 +341,8 @@ public class TabelaMarcaView extends javax.swing.JFrame {
     }//GEN-LAST:event_excluirMouseClicked
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
-        PrincipalView frame = new PrincipalView();
-        frame.setVisible(true);
+        //PrincipalView frame = new PrincipalView();
+        //frame.setVisible(true);
         TabelaMarcaView.this.dispose();
     }//GEN-LAST:event_voltarMouseClicked
     

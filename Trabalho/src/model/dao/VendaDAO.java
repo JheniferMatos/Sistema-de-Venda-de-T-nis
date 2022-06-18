@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.bean.Venda;
-import view.IAVendaView;
+import view.NovaVendaView;
 
 public class VendaDAO {
     

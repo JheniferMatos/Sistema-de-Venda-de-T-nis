@@ -1,10 +1,12 @@
 package controller;
 import java.util.ArrayList;
 import java.util.List;
+import model.bean.Cliente;
 import model.bean.Marca;
 import model.bean.ModeloVendido;
 import model.bean.Venda;
 import model.bean.Devolucao;
+import model.bean.Modelo;
 import model.dao.FuncionarioDAO;
 import model.dao.ClienteDAO;
 import model.dao.MarcaDAO;
@@ -68,7 +70,7 @@ public class Controller {
     }
     
 
-    public void realizarDevolucao(int codModeloVendido, String motivo){
+    public boolean realizarDevolucao(int codModeloVendido, String motivo){
         //Declarando objetos necessários
         Devolucao devolucao = new Devolucao();
         ModeloVendido mVendido = new ModeloVendido();
@@ -81,8 +83,16 @@ public class Controller {
         devolucao.setModeloVendido(mVendido);
         devolucao.setMotivo(motivo);
         
-        //Persistindo devolucao e atualizando estado do modeloVendido
-        devolucaoDAO.inserirDevolucao(devolucao);
+        //Atualizando estado do modeloVendido e persistindo devolucao
         modeloVendidoDAO.alteraEstadoDevolvido(mVendido);
+        return devolucaoDAO.inserirDevolucao(devolucao);
+    }
+    
+    public Cliente buscarClienteCpf(String cpf){
+        return clienteDAO.buscaClienteCpf(cpf);
+    }
+    
+    public Modelo buscarModelo(int codModelo){
+        return modeloDAO.buscaModeloCod(codModelo);
     }
 }

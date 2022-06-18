@@ -406,7 +406,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseClicked
-        IAVendaView frame = new IAVendaView();
+        NovaVendaView frame = new NovaVendaView();
         frame.setVisible(true);
         TabelaVendaView.this.dispose();
     }//GEN-LAST:event_btnNovoMouseClicked
