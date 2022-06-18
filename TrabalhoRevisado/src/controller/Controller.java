@@ -35,10 +35,8 @@ public class Controller {
         this.devolucaoDAO = new DevolucaoDAO();
     }
     
-    public List<Venda> getVendas(){
-        List<Venda> vendas = vendaDAO.buscaVendas();
-        
-        return vendas;
+    public List<Venda> getVendas(){       
+        return vendaDAO.buscaVendas();
     }
     
     public List<ModeloVendido> getModelosVendidos(int codVenda){
@@ -47,10 +45,8 @@ public class Controller {
         return modelosVendidos;
     }
     
-    public List <Marca> getMarcas(){
-        List<Marca> marcas = marcaDAO.buscaMarcas();
-        
-        return marcas;
+    public List <Marca> getMarcas(){        
+        return marcaDAO.buscaMarcas();
     }
     
     public Marca getMarca(int codigo){
@@ -67,6 +63,10 @@ public class Controller {
     
     public boolean ExcluirMarca(Marca marca){
         return marcaDAO.ExcluirMarca(marca);
+    }
+    
+    public List<Modelo> getModelos(int codModelo, Marca marca, String desc){
+        return modeloDAO.buscaModelos(codModelo, marca, desc);
     }
     
 
