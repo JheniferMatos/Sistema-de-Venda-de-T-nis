@@ -6,7 +6,7 @@ package view;
 
 import javax.swing.JOptionPane;
 import model.bean.Marca;
-import controller.Controller;
+import controller.Controladora;
 
 /**
  *
@@ -14,14 +14,14 @@ import controller.Controller;
  */
 public class IAMarcaView extends javax.swing.JFrame {
 
-    private Controller controller;
+    private Controladora controller;
     private Marca marca;
     
     public IAMarcaView(){
         initComponents();
     }
     
-    public IAMarcaView(Controller controller) {
+    public IAMarcaView(Controladora controller) {
         initComponents();
         this.controller = controller;
         this.marca = null;
@@ -248,7 +248,7 @@ public class IAMarcaView extends javax.swing.JFrame {
             else{
                 marca = new Marca();
                 marca.setNome(nome.getText());
-                if (controller.InserirMarca(marca)){
+                if (controller.inserirMarca(marca)){
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
                     TabelaMarcaView frame = new TabelaMarcaView(controller);
                     frame.setVisible(true);
@@ -264,7 +264,7 @@ public class IAMarcaView extends javax.swing.JFrame {
             
             if(JOptionPane.showOptionDialog(null, "Tem certeza que deseja alterar?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == 0){
                 marca.setNome(nome.getText());
-                if (controller.AlteraMarca(marca)) {
+                if (controller.alterarMarca(marca)) {
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
                     TabelaMarcaView frame = new TabelaMarcaView(controller);
                     frame.setVisible(true);

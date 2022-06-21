@@ -8,21 +8,21 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Marca;
 import model.bean.Modelo;
-import controller.Controller;
+import controller.Controladora;
 
 /**
  *
  * @author fonte
  */
 public class TabelaModeloView extends javax.swing.JFrame {
-    private Controller controller;
+    private Controladora controller;
     
     public TabelaModeloView(){
         initComponents();
         preencheCombo();
     }
       
-    public TabelaModeloView(Controller controller) {
+    public TabelaModeloView(Controladora controller) {
         this.controller = controller;
         initComponents();
         preencheCombo();
@@ -384,7 +384,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
 
     private void alterarBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarBtnMouseClicked
         if(tabela.getSelectedRow() != -1){
-            Modelo modelo = controller.GetModelo(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            Modelo modelo = controller.buscarModelo(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             IAModeloView frame = new IAModeloView(controller);
             frame.SetModelo(modelo);
             frame.setVisible(true);
@@ -397,11 +397,11 @@ public class TabelaModeloView extends javax.swing.JFrame {
 
     private void excluirBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirBtnMouseClicked
         if(tabela.getSelectedRow() != -1){
-            Modelo modelo = controller.GetModelo(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            Modelo modelo = controller.buscarModelo(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if(op == 0){
-                if(controller.ExcluirModelo(modelo)) {
+                if(controller.excluirModelo(modelo)) {
                     JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
                     pesquisaModelo();
                 } else {
@@ -415,8 +415,8 @@ public class TabelaModeloView extends javax.swing.JFrame {
     }//GEN-LAST:event_excluirBtnMouseClicked
 
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
-        PrincipalView frame = new PrincipalView();
-        frame.setVisible(true);
+        //PrincipalView frame = new PrincipalView();
+        //frame.setVisible(true);
         TabelaModeloView.this.dispose();
     }//GEN-LAST:event_voltarMouseClicked
 
@@ -482,7 +482,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
         comboMarca.addItem(null);
-        for(Marca marca: controller.getMarcas()){
+        for(Marca marca: controller.buscarMarcas()){
             comboMarca.addItem(marca);
         }
         comboMarca.setSelectedIndex(-1);
@@ -504,7 +504,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
         DefaultTableModel modeloTb = (DefaultTableModel) tabela.getModel();
         modeloTb.setNumRows(0);
         
-        for(Modelo modelo: controller.GetModelos(codModelo, marca, desc)){
+        for(Modelo modelo: controller.buscarModelos(codModelo, marca, desc)){
             modeloTb.addRow(new Object[]{
                 modelo.getCod(),
                 modelo.getMarca(),

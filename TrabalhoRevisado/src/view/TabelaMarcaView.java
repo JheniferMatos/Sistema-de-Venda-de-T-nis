@@ -6,7 +6,7 @@ package view;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import controller.Controller;
+import controller.Controladora;
 import model.bean.Marca;
 
 /**
@@ -15,13 +15,13 @@ import model.bean.Marca;
  */
 public class TabelaMarcaView extends javax.swing.JFrame {
 
-    Controller controller;
+    Controladora controller;
     
     public TabelaMarcaView(){
         initComponents();
     }
    
-    public TabelaMarcaView(Controller controller) {
+    public TabelaMarcaView(Controladora controller) {
         initComponents();
         this.controller = controller;
         preencheTabelaMarca();
@@ -308,7 +308,7 @@ public class TabelaMarcaView extends javax.swing.JFrame {
 
     private void alterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarMouseClicked
         if(tabela.getSelectedRow() != -1){
-            Marca marca = controller.getMarca(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            Marca marca = controller.buscarMarca(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             IAMarcaView frame = new IAMarcaView(controller);
             frame.SetMarca(marca);
             frame.setVisible(true);
@@ -322,11 +322,11 @@ public class TabelaMarcaView extends javax.swing.JFrame {
     private void excluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirMouseClicked
                 
         if(tabela.getSelectedRow() != -1){
-            Marca marca = controller.getMarca(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            Marca marca = controller.buscarMarca(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if(op == 0){
-                if (controller.ExcluirMarca(marca)) {
+                if (controller.excluirMarca(marca)) {
                     JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
                     preencheTabelaMarca();
                 } else {
@@ -407,7 +407,7 @@ public class TabelaMarcaView extends javax.swing.JFrame {
         DefaultTableModel modeloTb = (DefaultTableModel) tabela.getModel();
         modeloTb.setNumRows(0);
         
-        for(Marca marca: controller.getMarcas()){
+        for(Marca marca: controller.buscarMarcas()){
             modeloTb.addRow(new Object[]{
                 marca.getCod(),
                 marca.getNome()

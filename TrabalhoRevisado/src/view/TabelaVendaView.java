@@ -1,6 +1,6 @@
 package view;
 
-import controller.Controller;
+import controller.Controladora;
 import controller.ControllerTabelaVenda;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,14 +23,15 @@ import model.bean.Venda;
  */
 public class TabelaVendaView extends javax.swing.JFrame {
     
-    Controller controller;
+    Controladora controller = new Controladora();
     
     public TabelaVendaView(){
         initComponents();
+        preencheTabelaVenda();
     }
     
     
-    public TabelaVendaView(Controller controller) {
+    public TabelaVendaView(Controladora controller) {
         initComponents();
         this.controller = controller;
         preencheTabelaVenda();
@@ -335,7 +336,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
             DefaultTableModel modeloTb = (DefaultTableModel) tabelaItens.getModel();
             modeloTb.setNumRows(0);
             
-            for(ModeloVendido modeloVendido: controller.getModelosVendidos(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()))){
+            for(ModeloVendido modeloVendido: controller.buscarModelosVendidos(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()))){
                 Object row[] = new Object[]{modeloVendido.getCod(), modeloVendido.getModelo().getMarca().getNome(), modeloVendido.getModelo().getDesc(), modeloVendido.getModelo().getPreco()};
                 
                 modeloTb.addRow(row);
@@ -415,7 +416,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
         DefaultTableModel modeloTb = (DefaultTableModel) tabelaVenda.getModel();
         modeloTb.setNumRows(0);
         
-        for(Venda venda: controller.getVendas()){
+        for(Venda venda: controller.buscarVendas()){
             Object row[] = new Object[]{venda.getCod(), venda.getCliente().getNome(), venda.getData(), venda.getTotal()};
             modeloTb.addRow(row);
         }

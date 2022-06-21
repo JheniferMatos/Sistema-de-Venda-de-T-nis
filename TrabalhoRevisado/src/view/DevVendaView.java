@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.Controller;
+import controller.Controladora;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.ModeloVendido;
@@ -15,7 +15,7 @@ import model.dao.ModeloVendidoDAO;
  * @author fonte
  */
 public class DevVendaView extends javax.swing.JFrame {
-    Controller controller;
+    Controladora controller;
     //Dados para o front-end
     private String codVenda;
     private String cliente;
@@ -32,7 +32,7 @@ public class DevVendaView extends javax.swing.JFrame {
     }
     */
     
-    public DevVendaView(Controller controladora, String codV, String nomeCliente, String dataVenda) {
+    public DevVendaView(Controladora controladora, String codV, String nomeCliente, String dataVenda) {
         initComponents();
         this.codVenda = codV;
         this.cliente = nomeCliente;
@@ -268,7 +268,9 @@ public class DevVendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+        String estadoDevolucao;
         String motivo = "";
+        int codModelo = Integer.parseInt(tabelaItens.getValueAt(tabelaItens.getSelectedRow(), 0).toString());
         if(cbMotivo1.isSelected()){
             motivo+= "Motivo1";
         }
@@ -287,9 +289,13 @@ public class DevVendaView extends javax.swing.JFrame {
         if(tabelaItens.getSelectedRow() != -1 && (motivo!="")){
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Solicitar devolução?", "Devolução", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            estadoDevolucao = controller.realizarDevolucao(codModelo, motivo);
             if(op == 0){
-                if(controller.realizarDevolucao(Integer.parseInt(tabelaItens.getValueAt(tabelaItens.getSelectedRow(), 0).toString()), motivo)){
-                    JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+                if(estadoDevolucao.equals("Devolvido com sucesso!")){
+                    JOptionPane.showMessageDialog(null, estadoDevolucao);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, estadoDevolucao, "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -372,7 +378,7 @@ public class DevVendaView extends javax.swing.JFrame {
         modeloTb.setNumRows(0);
         ModeloVendidoDAO mvdao = new ModeloVendidoDAO();
         
-        for(ModeloVendido modeloV: controller.getModelosVendidos(Integer.parseInt(codVenda))){
+        for(ModeloVendido modeloV: controller.buscarModelosVendidos(Integer.parseInt(codVenda))){
             Object row[] = new Object[]{modeloV.getCod(), modeloV.getModelo().getMarca().getNome(), modeloV.getModelo().getDesc(), modeloV.getModelo().getPreco()};
             modeloTb.addRow(row);
             /*

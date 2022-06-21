@@ -3,13 +3,13 @@ package view;
 import javax.swing.JOptionPane;
 import model.bean.Marca;
 import model.bean.Modelo;
-import controller.Controller;
+import controller.Controladora;
 
 
 public class IAModeloView extends javax.swing.JFrame {
 
     private int operacaoID;
-    private Controller controller;
+    private Controladora controller;
     private Modelo modelo;
     
     public IAModeloView() {
@@ -17,7 +17,7 @@ public class IAModeloView extends javax.swing.JFrame {
         preencheCombo();
     }
     
-    public IAModeloView(Controller controller){
+    public IAModeloView(Controladora controller){
         this.controller = controller;
         this.modelo = null;
         initComponents();
@@ -272,7 +272,7 @@ public class IAModeloView extends javax.swing.JFrame {
                 Marca marca = (Marca) comboMarca.getSelectedItem();
                 modelo.setMarca(marca);
                 modelo.setPreco(Float.parseFloat(preco.getText().replace(",", ".")));
-                if (controller.InserirModelo(modelo)){
+                if (controller.inserirModelo(modelo)){
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
                     TabelaModeloView frame = new TabelaModeloView();
                     frame.setVisible(true);
@@ -293,7 +293,7 @@ public class IAModeloView extends javax.swing.JFrame {
                 modelo.setDesc(descricao.getText());
                 modelo.setPreco(Float.parseFloat(preco.getText()));
                 
-                if (controller.AlterarModelo(modelo)){
+                if (controller.alterarModelo(modelo)){
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
                     TabelaModeloView frame = new TabelaModeloView();
                     frame.setVisible(true);
@@ -365,7 +365,7 @@ public class IAModeloView extends javax.swing.JFrame {
     private javax.swing.JLabel tituloL;
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
-        for(Marca marca: controller.getMarcas()){
+        for(Marca marca: controller.buscarMarcas()){
             comboMarca.addItem(marca);            
         }
         comboMarca.setSelectedIndex(-1);

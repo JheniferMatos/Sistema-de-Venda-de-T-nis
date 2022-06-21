@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.Controller;
+import controller.Controladora;
 import javax.swing.JOptionPane;
 import model.bean.Cliente;
 import model.bean.Modelo;
@@ -15,7 +15,7 @@ import model.bean.Venda;
  * @author fonte
  */
 public class NovaVendaView extends javax.swing.JFrame {
-    Controller controller = new Controller();;
+    Controladora controller = new Controladora();;
     Cliente cliente;
     Modelo modelo;
     Venda venda;
@@ -26,7 +26,7 @@ public class NovaVendaView extends javax.swing.JFrame {
         initComponents();
     }
     
-    public NovaVendaView(Controller controller) {
+    public NovaVendaView(Controladora controller) {
         initComponents();
         this.controller = controller;
     }
@@ -173,6 +173,11 @@ public class NovaVendaView extends javax.swing.JFrame {
 
         btnAdicionar.setBackground(new java.awt.Color(166, 255, 171));
         btnAdicionar.setText("Adicionar ➕");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
         btnConfirmar.setBackground(new java.awt.Color(166, 255, 171));
         btnConfirmar.setText("Confirmar ✔");
@@ -321,6 +326,7 @@ public class NovaVendaView extends javax.swing.JFrame {
                 tfNome.setText(cliente.getNome());
             }
             else{
+                limpaCamposCliente();
                 Object[] options = {"Sim", "Não"};
                 int op = JOptionPane.showOptionDialog(null, "CPF não encontrado!\nDeseja cadastrar um novo cliente?", "Erro", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
                 if(op == 0){
@@ -334,9 +340,9 @@ public class NovaVendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarCpfActionPerformed
 
     private void btnBuscarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarModeloActionPerformed
-        
-        if(tfCodModelo.getText().trim() != ""){
-            this.modelo = controller.buscarModelo(Integer.parseInt(tfCodModelo.getText()));
+        String codModelo = tfCodModelo.getText();
+        if(codModelo.length() >= 1){
+            this.modelo = controller.buscarModelo(Integer.parseInt(codModelo));
             if(modelo.getDesc() != null){
                 tfDescricao.setText(modelo.getDesc());
                 tfMarca.setText(modelo.getMarca().getNome());
@@ -352,6 +358,10 @@ public class NovaVendaView extends javax.swing.JFrame {
             limpaCamposModelo();
         }
     }//GEN-LAST:event_btnBuscarModeloActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,5 +432,10 @@ public class NovaVendaView extends javax.swing.JFrame {
         tfDescricao.setText("");
         tfMarca.setText("");
         tfValor.setText("");
+    }
+    
+    public void limpaCamposCliente(){
+        tfCpf.setText("");
+        tfNome.setText("");
     }
 }

@@ -15,7 +15,7 @@ import model.dao.VendaDAO;
 import model.dao.DevolucaoDAO;
 import model.dao.ModeloVendidoDAO;
 
-public class Controller {
+public class Controladora {
 
     private FuncionarioDAO funcionarioDAO;
     private ClienteDAO clienteDAO;
@@ -25,7 +25,7 @@ public class Controller {
     private VendaDAO vendaDAO;
     private DevolucaoDAO devolucaoDAO;
     
-    public Controller(){
+    public Controladora(){
         this.funcionarioDAO = new FuncionarioDAO();
         this.clienteDAO = new ClienteDAO();
         this.marcaDAO = new MarcaDAO();
@@ -35,58 +35,59 @@ public class Controller {
         this.devolucaoDAO = new DevolucaoDAO();
     }
     
-    public List<Venda> getVendas(){       
+    public ArrayList<Venda> buscarVendas(){       
         return vendaDAO.buscaVendas();
     }
     
-    public List<ModeloVendido> getModelosVendidos(int codVenda){
+    /*
+    public List<Venda> buscarVendas(Venda venda){       
+        return vendaDAO.buscaVendas();
+    }
+    */
+
+    public ArrayList<ModeloVendido> buscarModelosVendidos(int codVenda){
         ArrayList<ModeloVendido> modelosVendidos = modeloVendidoDAO.buscarModelosVendidos(codVenda);
         
         return modelosVendidos;
     }
     
-    public List <Marca> getMarcas(){        
+    public ArrayList <Marca> buscarMarcas(){        
         return marcaDAO.buscaMarcas();
     }
     
-    public Marca getMarca(int codigo){
+    public Marca buscarMarca(int codigo){
         return marcaDAO.buscaMarcaCod(codigo);
     }
     
-    public boolean InserirMarca(Marca marca){
+    public boolean inserirMarca(Marca marca){
         return marcaDAO.InserirMarca(marca);
     }
     
-    public boolean AlteraMarca(Marca marca){
+    public boolean alterarMarca(Marca marca){
         return marcaDAO.AlterarMarca(marca);
     }
     
-    public boolean ExcluirMarca(Marca marca){
+    public boolean excluirMarca(Marca marca){
         return marcaDAO.ExcluirMarca(marca);
     }
     
-    public List<Modelo> GetModelos(int codModelo, Marca marca, String desc){
+    public ArrayList<Modelo> buscarModelos(int codModelo, Marca marca, String desc){
         return modeloDAO.buscaModelos(codModelo, marca, desc);
     }
     
-    public Modelo GetModelo(int codigo){
-        return modeloDAO.buscaModeloCod(codigo);
-    }
-    
-    public boolean InserirModelo(Modelo modelo){
+    public boolean inserirModelo(Modelo modelo){
         return modeloDAO.InserirModelo(modelo);
     }
     
-    public boolean AlterarModelo(Modelo modelo){
+    public boolean alterarModelo(Modelo modelo){
        return modeloDAO.AlterarModelo(modelo);
    }
     
-    public boolean ExcluirModelo(Modelo modelo){
+    public boolean excluirModelo(Modelo modelo){
         return modeloDAO.ExcluirModelo(modelo);
     }
     
-
-    public boolean realizarDevolucao(int codModeloVendido, String motivo){
+    public String realizarDevolucao(int codModeloVendido, String motivo){
         //Declarando objetos necessários
         Devolucao devolucao = new Devolucao();
         ModeloVendido mVendido = new ModeloVendido();
