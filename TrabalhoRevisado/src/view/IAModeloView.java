@@ -268,6 +268,7 @@ public class IAModeloView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Informe os dados corretamente!");
             }
             else{
+                Modelo modelo = new Modelo();
                 modelo.setDesc(descricao.getText());
                 Marca marca = (Marca) comboMarca.getSelectedItem();
                 modelo.setMarca(marca);

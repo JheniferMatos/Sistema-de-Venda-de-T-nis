@@ -40,7 +40,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
         titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        voltar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         corpo = new javax.swing.JPanel();
         elementos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,10 +72,10 @@ public class TabelaModeloView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Modelos de tênis");
 
-        voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/backIcon.png"))); // NOI18N
-        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                voltarMouseClicked(evt);
+        jButton1.setText("⬅");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -85,18 +85,22 @@ public class TabelaModeloView extends javax.swing.JFrame {
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(voltar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tituloLayout.setVerticalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                    .addComponent(voltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(tituloLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)))
                 .addContainerGap())
         );
 
@@ -414,11 +418,11 @@ public class TabelaModeloView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_excluirBtnMouseClicked
 
-    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
-        //PrincipalView frame = new PrincipalView();
-        //frame.setVisible(true);
-        TabelaModeloView.this.dispose();
-    }//GEN-LAST:event_voltarMouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Principal frame = new Principal();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -464,6 +468,7 @@ public class TabelaModeloView extends javax.swing.JFrame {
     private javax.swing.JTextField descricao;
     private javax.swing.JPanel elementos;
     private javax.swing.JPanel excluirBtn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -478,16 +483,13 @@ public class TabelaModeloView extends javax.swing.JFrame {
     private javax.swing.JPanel pesqBtn;
     private javax.swing.JTable tabela;
     private javax.swing.JPanel titulo;
-    private javax.swing.JLabel voltar;
     // End of variables declaration//GEN-END:variables
     public void preencheCombo(){
         comboMarca.addItem(null);
         for(Marca marca: controller.buscarMarcas()){
             comboMarca.addItem(marca);
         }
-        comboMarca.setSelectedIndex(-1);
-        
-        
+        comboMarca.setSelectedIndex(-1);       
     }
     
     public void pesquisaModelo(){

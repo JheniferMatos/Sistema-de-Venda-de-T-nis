@@ -8,6 +8,7 @@ import controller.Controladora;
 import javax.swing.JOptionPane;
 import model.bean.Cliente;
 import model.bean.Modelo;
+import model.bean.ModeloVendido;
 import model.bean.Venda;
 
 /**
@@ -15,20 +16,25 @@ import model.bean.Venda;
  * @author fonte
  */
 public class NovaVendaView extends javax.swing.JFrame {
-    Controladora controller = new Controladora();;
+    Controladora controller = new Controladora();
     Cliente cliente;
     Modelo modelo;
+    ModeloVendido modeloVendido;
     Venda venda;
     /**
      * Creates new form IAVendaView
      */
     public NovaVendaView() {
         initComponents();
+        modeloVendido = new ModeloVendido();
+        venda = new Venda();
     }
     
     public NovaVendaView(Controladora controller) {
         initComponents();
         this.controller = controller;
+        modeloVendido = new ModeloVendido();
+        venda = new Venda();
     }
 
     /**
@@ -396,7 +402,8 @@ public class NovaVendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarModeloActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        
+        modeloVendido.setModelo(modelo);
+        venda.getModelosVendidos().add(modeloVendido);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**

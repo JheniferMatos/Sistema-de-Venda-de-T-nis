@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controladora;
-import controller.ControllerTabelaVenda;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,18 +23,16 @@ import model.bean.Venda;
  */
 public class TabelaVendaView extends javax.swing.JFrame {
     
-    Controladora controller = new Controladora();
+    Controladora controller;
     
     public TabelaVendaView(){
         initComponents();
-        preencheTabelaVenda();
     }
     
     
     public TabelaVendaView(Controladora controller) {
         initComponents();
         this.controller = controller;
-        preencheTabelaVenda();
     }
     
     /**
@@ -50,6 +47,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
         container = new javax.swing.JPanel();
         tituloF = new javax.swing.JPanel();
         tituloL = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         corpo = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         codigoVenda = new javax.swing.JTextField();
@@ -84,18 +82,32 @@ public class TabelaVendaView extends javax.swing.JFrame {
         tituloL.setForeground(new java.awt.Color(255, 255, 255));
         tituloL.setText("Vendas");
 
+        jButton2.setText("⬅");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout tituloFLayout = new javax.swing.GroupLayout(tituloF);
         tituloF.setLayout(tituloFLayout);
         tituloFLayout.setHorizontalGroup(
             tituloFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloFLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tituloL, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tituloFLayout.setVerticalGroup(
             tituloFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tituloL, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloFLayout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addGroup(tituloFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tituloL, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         corpo.setBackground(new java.awt.Color(255, 255, 255));
@@ -289,7 +301,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -347,13 +359,17 @@ public class TabelaVendaView extends javax.swing.JFrame {
             for(ModeloVendido modeloVendido: controller.buscarModelosVendidos(Integer.parseInt(tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString()))){
                 Object row[] = new Object[]{modeloVendido.getCod(), modeloVendido.getModelo().getMarca().getNome(), modeloVendido.getModelo().getDesc(), modeloVendido.getModelo().getPreco()};
                 
+                if(modeloVendido.getDevolvido()) row[3] = "[MODELO DEVOLVIDO]";
+                
                 modeloTb.addRow(row);
             }
         }
     }//GEN-LAST:event_tabelaVendaMouseClicked
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        NovaVendaView frame = new NovaVendaView(this.controller);
+        frame.setVisible(true);
+        TabelaVendaView.this.dispose();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -370,6 +386,12 @@ public class TabelaVendaView extends javax.swing.JFrame {
         
         preencheTabelaVenda(codVenda, clienteNome);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Principal frame = new Principal();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,6 +440,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
     private javax.swing.JPanel corpo;
     private javax.swing.JFormattedTextField fimData;
     private javax.swing.JFormattedTextField inicioData;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -434,17 +457,7 @@ public class TabelaVendaView extends javax.swing.JFrame {
     private javax.swing.JPanel tituloF;
     private javax.swing.JLabel tituloL;
     // End of variables declaration//GEN-END:variables
-    public void preencheTabelaVenda(){
-        
-        DefaultTableModel modeloTb = (DefaultTableModel) tabelaVenda.getModel();
-        modeloTb.setNumRows(0);
-        
-        for(Venda venda: controller.buscarVendas()){
-            Object row[] = new Object[]{venda.getCod(), venda.getCliente().getNome(), venda.getDataHora(), venda.getTotal()};
-            modeloTb.addRow(row);
-        }
-    }
-    
+  
     public void preencheTabelaVenda(int codVenda, String clienteNome){
         
         DefaultTableModel modeloTb = (DefaultTableModel) tabelaVenda.getModel();

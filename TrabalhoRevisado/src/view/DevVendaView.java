@@ -25,13 +25,6 @@ public class DevVendaView extends javax.swing.JFrame {
         initComponents();
     }
     
-    /*
-    public DevVendaView(Controller controladora) {
-        initComponents();
-        this.controller = controladora;
-    }
-    */
-    
     public DevVendaView(Controladora controladora, String codV, String nomeCliente, String dataVenda) {
         initComponents();
         this.codVenda = codV;
@@ -270,7 +263,7 @@ public class DevVendaView extends javax.swing.JFrame {
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
         String estadoDevolucao;
         String motivo = "";
-        int codModelo = Integer.parseInt(tabelaItens.getValueAt(tabelaItens.getSelectedRow(), 0).toString());
+        int codModeloVendido = Integer.parseInt(tabelaItens.getValueAt(tabelaItens.getSelectedRow(), 0).toString());
         if(cbMotivo1.isSelected()){
             motivo+= "Motivo1";
         }
@@ -289,7 +282,7 @@ public class DevVendaView extends javax.swing.JFrame {
         if(tabelaItens.getSelectedRow() != -1 && (motivo!="")){
             Object[] options = {"Sim", "Não"};
             int op = JOptionPane.showOptionDialog(null, "Solicitar devolução?", "Devolução", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            estadoDevolucao = controller.realizarDevolucao(codModelo, motivo);
+            estadoDevolucao = controller.realizarDevolucao(codModeloVendido, motivo);
             if(op == 0){
                 if(estadoDevolucao.equals("Devolvido com sucesso!")){
                     JOptionPane.showMessageDialog(null, estadoDevolucao);
@@ -378,14 +371,12 @@ public class DevVendaView extends javax.swing.JFrame {
         modeloTb.setNumRows(0);
         ModeloVendidoDAO mvdao = new ModeloVendidoDAO();
         
-        for(ModeloVendido modeloV: controller.buscarModelosVendidos(Integer.parseInt(codVenda))){
-            Object row[] = new Object[]{modeloV.getCod(), modeloV.getModelo().getMarca().getNome(), modeloV.getModelo().getDesc(), modeloV.getModelo().getPreco()};
+        for(ModeloVendido modeloVendido: controller.buscarModelosVendidos(Integer.parseInt(codVenda))){
+            Object row[] = new Object[]{modeloVendido.getCod(), modeloVendido.getModelo().getMarca().getNome(), modeloVendido.getModelo().getDesc(), modeloVendido.getModelo().getPreco()};
+            
+            if(modeloVendido.getDevolvido()) row[3] = "[MODELO DEVOLVIDO]";
+            
             modeloTb.addRow(row);
-            /*
-            if(devDAO.verificaModeloVendido(modeloV)){
-                row[0] = "(DEVOLVIDO)";
-            }
-            */
         }  
     }
 }

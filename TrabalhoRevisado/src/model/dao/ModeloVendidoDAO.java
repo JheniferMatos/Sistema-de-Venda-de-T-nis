@@ -33,6 +33,7 @@ public class ModeloVendidoDAO {
                 mve.setCod(rs.getInt("MVE_COD"));
                 mve.setVenda(vDAO.buscaVenda(rs.getInt("MVE_VENDA")));
                 mve.setModelo(mDAO.buscaModeloCod(rs.getInt("MVE_MODELO")));
+                if(rs.getInt("MVE_DEVOLVIDO") == 1) mve.setDevolvido(true);
                 
                 modelos.add(mve);
             }
