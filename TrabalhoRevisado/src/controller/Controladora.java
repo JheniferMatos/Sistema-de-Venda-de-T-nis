@@ -1,5 +1,6 @@
 package controller;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.bean.Cliente;
 import model.bean.Marca;
@@ -37,6 +38,10 @@ public class Controladora {
     
     public ArrayList<Venda> buscarVendas(){       
         return vendaDAO.buscaVendas();
+    }
+    
+    public ArrayList<Venda> buscarVendas(int codVenda, String nomeCliente){       
+        return vendaDAO.buscaVendas(codVenda, nomeCliente);
     }
     
     /*

@@ -34,11 +34,11 @@ public class Venda{
         this.funcionario = nFuncionario;
     }
     
-    public Date getData(){
+    public Date getDataHora(){
         return this.dataHora;
     }
     
-    public void setData(Date nDataHora){
+    public void setDataHora(Date nDataHora){
         this.dataHora = nDataHora;
     }
     
@@ -53,6 +53,12 @@ public class Venda{
     public ArrayList<ModeloVendido> getModelosVendidos() {
         return modelosVendidos;
     }
+    
+    /*
+    public void carregarModelosVendidos() {
+        ArrayList<ModeloVendido> = modeloVendidoDAO.buscarModelosVendidos(this.codigo)
+    }
+    */
 
     public void setModelosVendidos(ArrayList<ModeloVendido> modelosVendidos) {
         this.modelosVendidos = modelosVendidos;

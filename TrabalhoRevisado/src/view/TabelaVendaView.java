@@ -2,6 +2,7 @@ package view;
 
 import controller.Controladora;
 import controller.ControllerTabelaVenda;
+import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -121,14 +122,21 @@ public class TabelaVendaView extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        fimData.setEnabled(false);
 
         try {
             inicioData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## / ## / ####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        inicioData.setEnabled(false);
 
         btnBuscar.setText("🔍");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -348,6 +356,21 @@ public class TabelaVendaView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int codVenda = 0;
+        String clienteNome = "";
+        
+        try{
+            if(!codigoVenda.getText().trim().equals("")) codVenda = Integer.parseInt(codigoVenda.getText());
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Erro com código de venda!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        clienteNome = nomeCliente.getText();
+        
+        preencheTabelaVenda(codVenda, clienteNome);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -417,8 +440,21 @@ public class TabelaVendaView extends javax.swing.JFrame {
         modeloTb.setNumRows(0);
         
         for(Venda venda: controller.buscarVendas()){
-            Object row[] = new Object[]{venda.getCod(), venda.getCliente().getNome(), venda.getData(), venda.getTotal()};
+            Object row[] = new Object[]{venda.getCod(), venda.getCliente().getNome(), venda.getDataHora(), venda.getTotal()};
             modeloTb.addRow(row);
         }
+    }
+    
+    public void preencheTabelaVenda(int codVenda, String clienteNome){
+        
+        DefaultTableModel modeloTb = (DefaultTableModel) tabelaVenda.getModel();
+        modeloTb.setNumRows(0);
+        
+        for(Venda venda: controller.buscarVendas(codVenda, clienteNome)){
+            Object row[] = new Object[]{venda.getCod(), venda.getCliente().getNome(), venda.getDataHora(), venda.getTotal()};
+            modeloTb.addRow(row);
+        }
+        
+        
     }
 }
