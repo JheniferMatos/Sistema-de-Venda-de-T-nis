@@ -1,25 +1,25 @@
 package model.bean;
 
 public class Modelo {
-    private int cod;
-    private String desc;
+    private int codigo;
+    private String descricao;
     private Marca marca;
     private float preco;
 
     public int getCod() {
-        return cod;
+        return codigo;
     }
 
     public void setCod(int cod) {
-        this.cod = cod;
+        this.codigo = cod;
     }
 
     public String getDesc() {
-        return desc;
+        return descricao;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.descricao = desc;
     }
 
     public Marca getMarca() {

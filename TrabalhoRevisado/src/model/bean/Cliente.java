@@ -15,7 +15,7 @@ public class Cliente {
     private String email;
     private ArrayList<Telefone> telefones;
 
-    public int getCod(){
+    public int setCod(){
         return this.codigo ;
     }
     

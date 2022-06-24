@@ -1,6 +1,5 @@
 package model.bean;
 
-import model.bean.ModeloVendido;
 
 public class Devolucao {
     private int codigo;
